@@ -13,7 +13,7 @@ export const RequestLine = (props: RequestLineProps) => {
   const { isFocused } = useFocus();
   const { loading, trigger, response } = useRequest(props.request);
 
-  useInput(async (char, key) => {
+  useInput(async (char) => {
     if (char === "e" && isFocused) {
       props.onTriggerEdit();
     }
@@ -23,7 +23,6 @@ export const RequestLine = (props: RequestLineProps) => {
     }
   });
 
-  useInput((_, key) => {});
   const pathString = props.request.path ? `/${props.request.path}` : ``;
   return (
     <Box

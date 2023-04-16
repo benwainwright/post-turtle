@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HttpRequest } from "../../types/http-request.js";
-import fetch, { FetchError, Response } from "node-fetch";
+import fetch, { FetchError } from "node-fetch";
 import { normaliseRequest } from "../../core/normalise-request.js";
 
 interface SimpleResponse {
@@ -22,9 +22,10 @@ export const useRequest = (request: HttpRequest) => {
         method: normalisedRequest.method,
         body: normalisedRequest.body,
         headers: Object.fromEntries(
-          Object.entries(normalisedRequest.headers ?? {}).map(
-            ([key, value]) => [value.key, value.value]
-          )
+          Object.entries(normalisedRequest.headers ?? {}).map(([, value]) => [
+            value.key,
+            value.value,
+          ])
         ),
       });
       const body = await fetchResponse.text();

@@ -12,7 +12,13 @@ describe("<KeyValueAddFieldRow />", () => {
     const onChange = jest.fn();
 
     const { stdin } = render(
-      <KeyValueAddFieldEntries fieldValue={values} onChange={onChange} />
+      <KeyValueAddFieldEntries
+        fieldValue={values}
+        onChange={onChange}
+        editing=""
+        onChangeEditStatus={jest.fn()}
+        finishEditing={jest.fn()}
+      />
     );
 
     stdin.write("\t\t\t\r3");

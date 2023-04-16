@@ -67,7 +67,7 @@ export const KeyValueAddField = ({
   });
 
   useEffect(() => {
-    if (Boolean(editing)) {
+    if (editing) {
       setEditStatus(EditStatus.HeaderSelected);
     }
 
