@@ -1,4 +1,5 @@
 import { useInput, Text, Box, useFocus } from "ink";
+import { INPUT_WIDTH } from "../../core/constants.js";
 
 interface SelectProps {
   label: string;
@@ -27,7 +28,7 @@ export const Select = ({ label, options, value, onChange }: SelectProps) => {
     <Box
       borderStyle={"single"}
       borderColor={isFocused ? "green" : undefined}
-      width={60}
+      width={INPUT_WIDTH}
     >
       <Box marginRight={1}>
         <Text>{label}</Text>

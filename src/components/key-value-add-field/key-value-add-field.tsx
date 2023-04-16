@@ -3,6 +3,15 @@ import { KeyValueAddFieldEntries } from "./key-value-add-field-entries.js";
 import { v4 } from "uuid";
 import { Header } from "../../types/header.js";
 import { useEffect, useState } from "react";
+import { INPUT_WIDTH } from "../../core/constants.js";
+
+export enum EditStatus {
+  NotEditing = "NotEditing",
+  HeaderSelected = "HeaderSelected",
+  Editing = "Editing",
+  InKey = "InKey",
+  InValue = "InValue",
+}
 
 interface KeyValueAddFieldProps {
   label: string;
@@ -10,50 +19,86 @@ interface KeyValueAddFieldProps {
   onChange: (values: Record<string, Header>) => void;
 }
 
+const getHelperText = (editStatus: EditStatus) => {
+  switch (editStatus) {
+    case EditStatus.NotEditing:
+      return "Press enter to edit header values";
+    case EditStatus.HeaderSelected:
+      return "Press enter to edit this header";
+    case EditStatus.InKey:
+      return "Press 'enter' to switch to editing header value";
+    case EditStatus.InValue:
+      return "Press 'enter' to save header";
+    case EditStatus.Editing:
+      return "Use arrow keys and 'enter' to edit or 'a' to create a new header";
+  }
+};
+
 export const KeyValueAddField = ({
   label,
   fieldValue,
   onChange,
 }: KeyValueAddFieldProps) => {
-  const { isFocused, focus } = useFocus();
-  const [addedButNotFocused, setAddedButNotFocused] = useState<
-    string | undefined
-  >();
-  useInput((_, key) => {
-    if (key.return) {
+  const { isFocused } = useFocus();
+  const [editMode, setEditMode] = useState(false);
+  const [editing, setEditing] = useState<string | undefined>();
+  const [editStatus, setEditStatus] = useState<EditStatus>(
+    EditStatus.NotEditing
+  );
+
+  useInput((char, key) => {
+    if (!isFocused && editMode) {
+      setEditing(undefined);
+      setEditMode(false);
+    }
+
+    if (key.return && !editMode) {
+      setEditMode(true);
+    }
+
+    if (char === "a" && editStatus === EditStatus.Editing) {
       const id = v4();
-      onChange({ ...fieldValue, [id]: { key: "", value: "" } });
-      setAddedButNotFocused(id);
+      onChange({
+        ...fieldValue,
+        [id]: { key: "new-header", value: "new-value" },
+      });
+      setEditing(id);
     }
   });
 
   useEffect(() => {
-    if (addedButNotFocused) {
-      focus(addedButNotFocused);
-      setAddedButNotFocused(undefined);
+    if (Boolean(editing)) {
+      setEditStatus(EditStatus.HeaderSelected);
     }
-  }, [addedButNotFocused]);
+
+    if (editMode && !editing) {
+      setEditStatus(EditStatus.Editing);
+    }
+    if (!editMode) {
+      setEditStatus(EditStatus.NotEditing);
+    }
+  }, [editMode, editStatus]);
 
   return (
     <Box
       flexDirection="column"
       borderStyle={"single"}
       borderColor={isFocused ? "green" : undefined}
-      width={60}
+      width={INPUT_WIDTH}
     >
       <Box marginRight={1}>
         <Text>{label}</Text>
       </Box>
-      <Box flexDirection="row">
-        {!fieldValue || Object.entries(fieldValue).length === 0 ? (
-          <Text>Press enter to add headers</Text>
-        ) : (
-          <KeyValueAddFieldEntries
-            fieldValue={fieldValue}
-            onChange={onChange}
-          />
-        )}
+      <Box flexDirection="row" marginBottom={1}>
+        <KeyValueAddFieldEntries
+          onChangeEditStatus={(editStatus) => setEditStatus(editStatus)}
+          fieldValue={fieldValue}
+          onChange={onChange}
+          editing={editing}
+          finishEditing={() => setEditMode(false)}
+        />
       </Box>
+      <Text color="grey">{getHelperText(editStatus)}</Text>
     </Box>
   );
 };

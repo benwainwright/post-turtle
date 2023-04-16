@@ -1344,6 +1344,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/balanced-match@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@types/balanced-match/-/balanced-match-1.0.2.tgz#9a4dccbebbd293f21ace8485cd664d7777cdd66c"
+  integrity sha512-KgomuqUNYgN+Sibk22j7HB6vo8gziGz/k3Y8RkauF2duMZfMeIkyUKARef2eIIQuXGrkbIvcOfY5DNF/nQrDZQ==
+
 "@types/graceful-fs@^4.1.3":
   version "4.1.6"
   resolved "https://registry.npmjs.org/@types/graceful-fs/-/graceful-fs-4.1.6.tgz#e14b2576a1c25026b7f02ede1de3b84c3a1efeae"
@@ -1397,6 +1402,11 @@
   version "15.7.5"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
+
+"@types/re-template-tag@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@types/re-template-tag/-/re-template-tag-2.0.0.tgz#299f245663ff027eaed6385e776156aa91ead472"
+  integrity sha512-KutkX9tPxK1uooyBTEvfquOvcvdJqe1ep+zCAf54rYmoOvaJugwYpD1Q99WsuQfvgYOCjYqXhm4vPt0sCP5uig==
 
 "@types/react@^18.0.33":
   version "18.0.33"
@@ -1610,6 +1620,11 @@ balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+balanced-match@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-2.0.0.tgz#dc70f920d78db8b858535795867bf48f820633d9"
+  integrity sha512-1ugUSr8BHXRnK23KfuYS+gVMC3LB8QGH9W1iGtDPsNWoQbgtXSExkBu2aDR4epiGWZOjZsj6lDl/N/AqqTC3UA==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -2912,6 +2927,11 @@ pure-rand@^6.0.0:
   version "6.0.1"
   resolved "https://registry.npmjs.org/pure-rand/-/pure-rand-6.0.1.tgz#31207dddd15d43f299fdcdb2f572df65030c19af"
   integrity sha512-t+x1zEHDjBwkDGY5v5ApnZ/utcd4XYDiJsaQQoptTXgUXX95sDg1elCdJghzicm7n2mbCBJ3uYWr6M22SO19rg==
+
+re-template-tag@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/re-template-tag/-/re-template-tag-2.0.1.tgz#bdebf1cc76cece769090906e7317925069504955"
+  integrity sha512-TkxjSTkKDTKjSrflkkUDHd/2RDQuwoYPdrdNtTcDG0wD2EeT5FeeWe1QANwKe4BwOC5kN8a7QnvSAgSz7mRhwQ==
 
 react-is@^18.0.0:
   version "18.2.0"

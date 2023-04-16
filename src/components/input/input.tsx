@@ -1,5 +1,6 @@
 import { Box, Text, useFocus } from "ink";
 import TextInput from "ink-text-input";
+import { INPUT_WIDTH } from "../../core/constants.js";
 
 interface InputProps {
   label: string;
@@ -14,7 +15,7 @@ export const Input = ({ label, value, onChange, placeholder }: InputProps) => {
     <Box
       borderStyle={"single"}
       borderColor={isFocused ? "green" : undefined}
-      width={60}
+      width={INPUT_WIDTH}
     >
       <Box marginRight={1}>
         <Text>{label}</Text>
