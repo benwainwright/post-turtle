@@ -15,6 +15,7 @@
     "@types/react": "^18.0.33",
     "@types/uuid": "^9.0.1",
     "babel-plugin-module-rewrite": "^0.2.0",
+    "delay": "^5.0.0",
     "ink": "^4.1.0",
     "ink-spinner": "^5.0.0",
     "ink-testing-library": "^3.0.0",
