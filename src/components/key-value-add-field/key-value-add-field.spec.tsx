@@ -1,16 +1,17 @@
-import { Input } from "./input.js";
 import { render } from "ink-testing-library";
+import { KeyValueAddField } from "./key-value-add-field.js";
 import { jest } from "@jest/globals";
 
-describe("<Input>", () => {
-  it("Renders the input correctly", () => {
+describe("<KeyValueAddField />", () => {
+  it("Displays the correct label and a message requesting the user to 'press enter to add headers' if there is no data", () => {
     const { lastFrame } = render(
-      <Input label="Test" value="value" onChange={jest.fn()} />
+      <KeyValueAddField label="Headers" onChange={jest.fn()} />
     );
 
     expect(lastFrame()).toEqual(
       `┌──────────────────────────────────────────────────────────┐
-│Test value                                                │
+│Headers                                                   │
+│Press enter to add headers                                │
 └──────────────────────────────────────────────────────────┘`
     );
   });
