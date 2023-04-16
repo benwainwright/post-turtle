@@ -7,6 +7,6 @@ module.exports = {
         runtime: "automatic",
       },
     ],
-    ["@babel/preset-env", { modules: false, targets: { node: "current" } }],
+    ["@babel/preset-env", { modules: false }],
   ],
 };
