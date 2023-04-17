@@ -57,9 +57,9 @@ export const KeyValueAddFieldRow = ({
     }
 
     if (key.return && isEditing && editingRight) {
+      finishEditing();
       setEditingLeft(false);
       setEditingRight(false);
-      finishEditing();
     }
   });
 
