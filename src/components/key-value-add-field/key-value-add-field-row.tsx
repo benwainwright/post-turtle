@@ -72,6 +72,7 @@ export const KeyValueAddFieldRow = ({
         <TextInput
           value={keyName}
           focus={editingLeft}
+          placeholder="header-name"
           onChange={(newKey) => {
             onChange({ ...fieldValue, [id]: { key: newKey, value } });
           }}
@@ -80,6 +81,7 @@ export const KeyValueAddFieldRow = ({
         <TextInput
           value={value}
           focus={editingRight}
+          placeholder="header-value"
           onChange={(newValue) => {
             onChange({
               ...fieldValue,

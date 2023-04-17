@@ -11,7 +11,8 @@ const es6 = [
 const config: Config = {
   collectCoverageFrom: ["./src/**/*"],
   collectCoverage: true,
-  transformIgnorePatterns: [`/node_modules/(?!${es6})`],
+  transformIgnorePatterns: [`<rootDir>/node_modules/(?!${es6})`],
+  modulePathIgnorePatterns: [`<rootDir>/dist/`],
   moduleNameMapper: {
     "(.+)\\.js": "$1",
     "(.+)\\.jsx": "$1",

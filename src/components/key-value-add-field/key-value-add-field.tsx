@@ -8,6 +8,7 @@ import { INPUT_WIDTH } from "../../core/constants.js";
 export enum EditStatus {
   NotEditing = "NotEditing",
   HeaderSelected = "HeaderSelected",
+  EditingEmpty = "EditingEmpty",
   Editing = "Editing",
   InKey = "InKey",
   InValue = "InValue",
@@ -31,6 +32,8 @@ const getHelperText = (editStatus: EditStatus) => {
       return "Press 'enter' to save header";
     case EditStatus.Editing:
       return "Use arrow keys and 'enter' to edit or 'a' to create a new header";
+    case EditStatus.EditingEmpty:
+      return "Press 'a' to create a new header";
   }
 };
 
@@ -56,13 +59,31 @@ export const KeyValueAddField = ({
       setEditMode(true);
     }
 
-    if (char === "a" && editStatus === EditStatus.Editing) {
+    if (key.downArrow && editMode && EditStatus.Editing) {
+      const entries = Object.keys(fieldValue ?? {});
+      const currentIndex = entries.indexOf(editing ?? "");
+      const next =
+        currentIndex === entries.length - 1 ? currentIndex : currentIndex + 1;
+      setEditing(entries[next]);
+    }
+
+    if (key.upArrow && editMode && EditStatus.Editing) {
+      const entries = Object.keys(fieldValue ?? {});
+      const currentIndex = entries.indexOf(editing ?? "");
+      const prev = currentIndex === 0 ? currentIndex : currentIndex - 1;
+      setEditing(entries[prev]);
+    }
+
+    if (
+      char === "a" &&
+      (editStatus === EditStatus.Editing ||
+        editStatus === EditStatus.EditingEmpty)
+    ) {
       const id = v4();
       onChange({
         ...fieldValue,
         [id]: { key: "new-header", value: "new-value" },
       });
-      setEditing(id);
     }
   });
 
@@ -71,13 +92,16 @@ export const KeyValueAddField = ({
       setEditStatus(EditStatus.HeaderSelected);
     }
 
+    const count = Object.keys(fieldValue ?? {}).length;
+
     if (editMode && !editing) {
-      setEditStatus(EditStatus.Editing);
+      setEditStatus(count === 0 ? EditStatus.EditingEmpty : EditStatus.Editing);
     }
+
     if (!editMode) {
       setEditStatus(EditStatus.NotEditing);
     }
-  }, [editMode, editStatus]);
+  }, [editMode, editing]);
 
   return (
     <Box
