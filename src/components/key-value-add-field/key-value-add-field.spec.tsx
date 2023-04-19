@@ -40,7 +40,7 @@ describe("<KeyValueAddField />", () => {
     );
   });
 
-  it("Displays an editable new header when you press 'a'", async () => {
+  it("Calls onChange with an empty header when you press 'a'", async () => {
     const onChange = jest.fn();
 
     jest.mocked(v4).mockReturnValue("mock-id");
@@ -62,44 +62,27 @@ describe("<KeyValueAddField />", () => {
     });
   });
 
-  // // it("Calls the onChange with an empty header if you press enter", async () => {
-  //   const onChange = jest.fn();
+  it("Allows you to start editing the new header straight away", async () => {
+    const onChange = jest.fn();
 
-  //   jest.mocked(v4).mockReturnValue("mock-id");
+    jest.mocked(v4).mockReturnValue("mock-id");
 
-  //   const { stdin } = render(
-  //     <KeyValueAddField label="Headers" onChange={onChange} />
-  //   );
+    const { stdin } = render(
+      <KeyValueAddField label="Headers" onChange={onChange} />
+    );
 
-  //   stdin.write(`a`);
+    await delay(0);
+    stdin.write("\r");
+    await delay(0);
+    stdin.write(`a`);
 
-  //   expect(onChange).toBeCalledWith({
-  //     "mock-id": {
-  //       key: "",
-  //       value: "",
-  //     },
-  //   });
-  // });
-
-  // // it("Allows you to start editing the new header straight away", async () => {
-  // //   const onChange = jest.fn();
-
-  // //   jest.mocked(v4).mockReturnValue("mock-id");
-
-  // //   const { stdin } = render(
-  // //     <KeyValueAddField label="Headers" onChange={onChange} />
-  // //   );
-
-  //   stdin.write(`a`);
-  //   stdin.write(`f`);
-
-  //   expect(onChange).toBeCalledWith({
-  //     "mock-id": {
-  //       key: "f",
-  //       value: "",
-  //     },
-  //   });
-  // });
+    expect(onChange).toBeCalledWith({
+      "mock-id": {
+        key: "f",
+        value: "",
+      },
+    });
+  });
 
   // it("Renders input with actual headers correctly", async () => {
   //   const values = {

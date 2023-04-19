@@ -2,6 +2,7 @@ import { Box } from "ink";
 import { KeyValueAddFieldRow } from "./key-value-add-field-row.js";
 import { Header } from "../../types/header.js";
 import { EditStatus } from "./key-value-add-field.js";
+import { useEffect, useState } from "react";
 
 interface KeyValueAddFieldEntriesProps {
   fieldValue?: Record<string, Header>;
@@ -21,6 +22,22 @@ export const KeyValueAddFieldEntries = ({
   if (!fieldValue) {
     return <></>;
   }
+
+  const [oldIds, setOldIds] = useState<string[]>([]);
+  const [newId, setNewId] = useState<string | undefined>();
+
+  const ids = Object.entries(fieldValue).map(([key]) => key);
+
+  useEffect(() => {
+    const missing = ids.find((id) => !oldIds.includes(id));
+    if (missing) {
+      setNewId(missing);
+    } else {
+      setNewId(undefined);
+    }
+    setOldIds(ids);
+  }, [...ids]);
+
   return (
     <Box flexDirection="column">
       {Object.entries(fieldValue).map(([key, value]) => (
@@ -34,6 +51,7 @@ export const KeyValueAddFieldEntries = ({
           onChange={onChange}
           finishEditing={finishEditing}
           fieldValue={fieldValue}
+          startEdit={newId ? key === newId : false}
         />
       ))}
     </Box>

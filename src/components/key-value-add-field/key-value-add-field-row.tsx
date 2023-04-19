@@ -10,6 +10,7 @@ interface KeyValueAddFieldRowProps {
   value: string;
   editing?: string | undefined;
   fieldValue: Record<string, Header>;
+  startEdit: boolean;
   onChange: (values: Record<string, Header>) => void;
   onChangeEditStatus: (editStatus: EditStatus) => void;
   finishEditing: () => void;
@@ -24,6 +25,7 @@ export const KeyValueAddFieldRow = ({
   id,
   onChangeEditStatus,
   finishEditing,
+  startEdit,
 }: KeyValueAddFieldRowProps) => {
   const [editingLeft, setEditingLeft] = useState(true);
   const [editingRight, setEditingRight] = useState(false);
@@ -31,7 +33,7 @@ export const KeyValueAddFieldRow = ({
   const isEditing = Boolean(editing === id);
 
   useEffect(() => {
-    setEditingLeft(false);
+    setEditingLeft(startEdit ?? false);
     setEditingRight(false);
   }, [isEditing]);
 

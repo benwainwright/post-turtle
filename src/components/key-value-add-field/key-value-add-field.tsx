@@ -84,6 +84,7 @@ export const KeyValueAddField = ({
         ...fieldValue,
         [id]: { key: "", value: "" },
       });
+      setEditing(id);
     }
   });
 
