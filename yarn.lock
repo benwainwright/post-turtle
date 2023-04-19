@@ -1492,6 +1492,22 @@
   resolved "https://registry.npmjs.org/@types/re-template-tag/-/re-template-tag-2.0.0.tgz#299f245663ff027eaed6385e776156aa91ead472"
   integrity sha512-KutkX9tPxK1uooyBTEvfquOvcvdJqe1ep+zCAf54rYmoOvaJugwYpD1Q99WsuQfvgYOCjYqXhm4vPt0sCP5uig==
 
+"@types/react-dom@^18.0.11":
+  version "18.0.11"
+  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.0.11.tgz#321351c1459bc9ca3d216aefc8a167beec334e33"
+  integrity sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*":
+  version "18.0.37"
+  resolved "https://registry.npmjs.org/@types/react/-/react-18.0.37.tgz#7a784e2a8b8f83abb04dc6b9ed9c9b4c0aee9be7"
+  integrity sha512-4yaZZtkRN3ZIQD3KSEwkfcik8s0SWV+82dlJot1AbGYHCzJkWP3ENBY6wYeDRmKZ6HkrgoGAmR2HqdwYGp6OEw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
 "@types/react@^18.0.33":
   version "18.0.33"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.33.tgz#a1575160cb4376787c2f5fe0312302f824baa61e"
@@ -2554,10 +2570,11 @@ ink-spinner@^5.0.0:
   dependencies:
     cli-spinners "^2.7.0"
 
-ink-testing-library@^3.0.0:
+"ink-testing-library@https://github.com/benwainwright/ink-testing-library":
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ink-testing-library/-/ink-testing-library-3.0.0.tgz#7ff9ca443557dba273cea4f278063e540c88cc93"
-  integrity sha512-ItyyoOmcm6yftb7c5mZI2HU22BWzue8PBbO3DStmY8B9xaqfKr7QJONiWOXcwVsOk/6HuVQ0v7N5xhPaR3jycA==
+  resolved "https://github.com/benwainwright/ink-testing-library#bc208570ba2909ad714642d5fe7b586a8e50e57f"
+  dependencies:
+    "@types/node" "^18.15.11"
 
 ink-text-input@^5.0.1:
   version "5.0.1"
@@ -2567,10 +2584,9 @@ ink-text-input@^5.0.1:
     chalk "^5.2.0"
     type-fest "^3.6.1"
 
-ink@^4.1.0:
+"ink@https://github.com/benwainwright/ink":
   version "4.1.0"
-  resolved "https://registry.npmjs.org/ink/-/ink-4.1.0.tgz#6ae9a7c4ec8726c9601feabaff2ce015660e9075"
-  integrity sha512-cMGAHZN7aKSO3ZpOrIVE3nO95quV/Jx8MwO3TC5SR3lDAg+i16MCqKtzACnfd4mDYRN6AiZHh6eytrcxGMGsgA==
+  resolved "https://github.com/benwainwright/ink#14fa641b8ca212f57dc36c34140490b39940a326"
   dependencies:
     ansi-escapes "^6.0.0"
     auto-bind "^5.0.1"
@@ -2581,6 +2597,8 @@ ink@^4.1.0:
     code-excerpt "^4.0.0"
     indent-string "^5.0.0"
     is-ci "^3.0.1"
+    is-lower-case "^2.0.2"
+    is-upper-case "^2.0.2"
     lodash "^4.17.21"
     patch-console "^2.0.0"
     react-reconciler "^0.29.0"
@@ -2641,6 +2659,13 @@ is-glob@^4.0.0, is-glob@^4.0.1, is-glob@^4.0.3:
   dependencies:
     is-extglob "^2.1.1"
 
+is-lower-case@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/is-lower-case/-/is-lower-case-2.0.2.tgz#1c0884d3012c841556243483aa5d522f47396d2a"
+  integrity sha512-bVcMJy4X5Og6VZfdOZstSexlEy20Sr0k/p/b2IlQJlfdKAQuMpiv5w2Ccxb8sKdRUNAG1PnHVHjFSdRDVS6NlQ==
+  dependencies:
+    tslib "^2.0.3"
+
 is-number@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
@@ -2655,6 +2680,13 @@ is-stream@^2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/is-stream/-/is-stream-2.0.1.tgz#fac1e3d53b97ad5a9d0ae9cef2389f5810a5c077"
   integrity sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==
+
+is-upper-case@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/is-upper-case/-/is-upper-case-2.0.2.tgz#f1105ced1fe4de906a5f39553e7d3803fd804649"
+  integrity sha512-44pxmxAvnnAOwBg4tHPnkfvgjPwbc5QIsSstNU+YcJ1ovxVzCWpSGosPJOZh/a1tdl81fbgnLc9LLv+x2ywbPQ==
+  dependencies:
+    tslib "^2.0.3"
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -3462,6 +3494,14 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+react-dom@^18.2.0:
+  version "18.2.0"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
+  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
+  dependencies:
+    loose-envify "^1.1.0"
+    scheduler "^0.23.0"
+
 react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
@@ -3818,6 +3858,11 @@ tslib@^1.8.1:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
+tslib@^2.0.3:
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.5.0.tgz#42bfed86f5787aeb41d031866c8f402429e0fddf"
+  integrity sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==
+
 tsutils@^3.21.0:
   version "3.21.0"
   resolved "https://registry.npmjs.org/tsutils/-/tsutils-3.21.0.tgz#b48717d394cea6c1e096983eed58e9d61715b623"
@@ -3852,7 +3897,12 @@ type-fest@^0.21.3:
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
-type-fest@^3.0.0, type-fest@^3.6.1:
+type-fest@^3.0.0:
+  version "3.8.0"
+  resolved "https://registry.npmjs.org/type-fest/-/type-fest-3.8.0.tgz#ce80d1ca7c7d11c5540560999cbd410cb5b3a385"
+  integrity sha512-FVNSzGQz9Th+/9R6Lvv7WIAkstylfHN2/JYxkyhhmKFYh9At2DST8t6L6Lref9eYO8PXFTfG9Sg1Agg0K3vq3Q==
+
+type-fest@^3.6.1:
   version "3.7.2"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-3.7.2.tgz#08f83ee3229b63077e95c9035034d32905969457"
   integrity sha512-f9BHrLjRJ4MYkfOsnC/53PNDzZJcVo14MqLp2+hXE39p5bgwqohxR5hDZztwxlbxmIVuvC2EFAKrAkokq23PLA==

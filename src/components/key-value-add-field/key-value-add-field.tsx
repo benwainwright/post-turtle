@@ -82,7 +82,7 @@ export const KeyValueAddField = ({
       const id = v4();
       onChange({
         ...fieldValue,
-        [id]: { key: "new-header", value: "new-value" },
+        [id]: { key: "", value: "" },
       });
     }
   });
