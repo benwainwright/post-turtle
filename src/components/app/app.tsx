@@ -9,10 +9,14 @@ import path from "node:path";
 import { useStorage } from "../../hooks/use-storage/use-storage.js";
 import { normaliseRequest } from "../../core/normalise-request.js";
 
-const dataFile = path.join(process.cwd(), "requests.json");
+const defaultDatafile = path.join(process.cwd(), "requests.json");
 
-export const App = () => {
-  const storageResult = useStorage<HttpRequest[]>(dataFile);
+interface AppProps {
+  dataFile?: string;
+}
+
+export const App = ({ dataFile }: AppProps) => {
+  const storageResult = useStorage<HttpRequest[]>(dataFile ?? defaultDatafile);
 
   const [editRequest, setEditRequest] = useState<HttpRequest | undefined>();
 

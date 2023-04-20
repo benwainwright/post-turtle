@@ -4,10 +4,11 @@
   "type": "module",
   "license": "MIT",
   "bin": {
-    "api-tester": "./dist/src/run.js"
+    "api-tester": "./dist/src/cli.js"
   },
   "dependencies": {
     "@types/react-dom": "^18.0.11",
+    "commander": "^10.0.1",
     "ink": "https://github.com/benwainwright/ink",
     "ink-spinner": "^5.0.0",
     "ink-text-input": "^5.0.1",
@@ -44,7 +45,7 @@
   "scripts": {
     "lint": "eslint .",
     "build": "tsc",
-    "start": "ts-node --esm ./src/run.tsx",
+    "start": "ts-node --esm ./src/cli.tsx",
     "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules $(yarn bin jest) --verbose"
   }
 }
