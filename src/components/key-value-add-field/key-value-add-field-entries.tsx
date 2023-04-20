@@ -28,7 +28,7 @@ export const KeyValueAddFieldEntries = ({
 
   const ids = Object.entries(fieldValue).map(([key]) => key);
 
-  const idLength = ids.length;
+  const { length } = ids;
 
   useEffect(() => {
     const missing = ids.find((id) => !oldIds.includes(id));
@@ -38,7 +38,7 @@ export const KeyValueAddFieldEntries = ({
       setNewId(undefined);
     }
     setOldIds(ids);
-  }, [idLength]);
+  }, [length]);
 
   return (
     <Box flexDirection="column">

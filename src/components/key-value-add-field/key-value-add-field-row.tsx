@@ -33,9 +33,9 @@ export const KeyValueAddFieldRow = ({
   const isEditing = Boolean(editing === id);
 
   useEffect(() => {
-    setEditingLeft(startEdit ?? false);
+    setEditingLeft((startEdit && isEditing)?? false);
     setEditingRight(false);
-  }, [isEditing]);
+  }, [isEditing, startEdit]);
 
   useEffect(() => {
     if (isEditing) {
