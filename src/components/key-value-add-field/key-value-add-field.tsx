@@ -55,37 +55,39 @@ export const KeyValueAddField = ({
       setEditMode(false);
     }
 
-    if (key && !editMode) {
-      setEditMode(true);
-    }
+    if (isFocused) {
+      if (key && !editMode) {
+        setEditMode(true);
+      }
 
-    if (key.downArrow && editMode && EditStatus.Editing) {
-      const entries = Object.keys(fieldValue ?? {});
-      const currentIndex = entries.indexOf(editing ?? "");
-      const next =
-        currentIndex === entries.length - 1 ? currentIndex : currentIndex + 1;
-      setEditing(entries[next]);
-    }
+      if (key.downArrow && editMode && EditStatus.Editing) {
+        const entries = Object.keys(fieldValue ?? {});
+        const currentIndex = entries.indexOf(editing ?? "");
+        const next =
+          currentIndex === entries.length - 1 ? currentIndex : currentIndex + 1;
+        setEditing(entries[next]);
+      }
 
-    if (key.upArrow && editMode && EditStatus.Editing) {
-      const entries = Object.keys(fieldValue ?? {});
-      const currentIndex = entries.indexOf(editing ?? "");
-      const prev = currentIndex === 0 ? currentIndex : currentIndex - 1;
-      setEditing(entries[prev]);
-    }
+      if (key.upArrow && editMode && EditStatus.Editing) {
+        const entries = Object.keys(fieldValue ?? {});
+        const currentIndex = entries.indexOf(editing ?? "");
+        const prev = currentIndex === 0 ? currentIndex : currentIndex - 1;
+        setEditing(entries[prev]);
+      }
 
-    if (
-      char === "a" &&
-      (editStatus === EditStatus.Editing ||
-        editStatus === EditStatus.EditingEmpty ||
-        editStatus === EditStatus.HeaderSelected)
-    ) {
-      const id = v4();
-      onChange({
-        ...fieldValue,
-        [id]: { key: "", value: "" },
-      });
-      setEditing(id);
+      if (
+        char === "a" &&
+        (editStatus === EditStatus.Editing ||
+          editStatus === EditStatus.EditingEmpty ||
+          editStatus === EditStatus.HeaderSelected)
+      ) {
+        const id = v4();
+        onChange({
+          ...fieldValue,
+          [id]: { key: "", value: "" },
+        });
+        setEditing(id);
+      }
     }
   });
 

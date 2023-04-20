@@ -29,6 +29,11 @@ export const EditRequestForm = ({
         value={request.title}
         onChange={(title) => setRequest({ ...request, title })}
       />
+      <Input
+        label="Slug"
+        value={request.slug}
+        onChange={(slug) => setRequest({ ...request, slug })}
+      />
       <Select
         label="Method"
         options={HTTP_METHODS}

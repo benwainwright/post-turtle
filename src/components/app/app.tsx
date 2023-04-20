@@ -5,11 +5,9 @@ import { HttpRequest } from "../../types/http-request.js";
 import { EditRequestForm } from "../edit-request-form/edit-request-form.js";
 import { DEFAULT_REQUEST } from "../../core/default-request.js";
 import { RequestList } from "../request-list/request-list.js";
-import path from "node:path";
 import { useStorage } from "../../hooks/use-storage/use-storage.js";
 import { normaliseRequest } from "../../core/normalise-request.js";
-
-const defaultDatafile = path.join(process.cwd(), "requests.json");
+import { defaultDatafile } from "../../core/default-data-file-path.js";
 
 interface AppProps {
   dataFile?: string;

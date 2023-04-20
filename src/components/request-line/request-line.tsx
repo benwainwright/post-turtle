@@ -1,27 +1,39 @@
-import { useInput, Box, Text, useFocus } from "ink";
+import { useInput, Box, Text, useFocus, useApp } from "ink";
 import { HttpRequest } from "../../types/http-request.js";
 import { useRequest } from "../../hooks/use-request/use-request.js";
 import Spinner from "ink-spinner";
 import { FetchError } from "node-fetch";
+import { useEffect } from "react";
 
 interface RequestLineProps {
   request: HttpRequest;
-  onTriggerEdit: () => void;
+  onTriggerEdit?: () => void;
+  immediateTrigger?: boolean;
 }
 
 export const RequestLine = (props: RequestLineProps) => {
   const { isFocused } = useFocus();
   const { loading, trigger, response } = useRequest(props.request);
+  const { exit } = useApp();
 
   useInput(async (char) => {
     if (char === "e" && isFocused) {
-      props.onTriggerEdit();
+      props.onTriggerEdit?.();
     }
 
     if (char === "t" && isFocused) {
       await trigger();
     }
   });
+
+  useEffect(() => {
+    (async () => {
+      if (props.immediateTrigger) {
+        await trigger();
+        exit();
+      }
+    })();
+  }, []);
 
   const pathString = props.request.path ? `/${props.request.path}` : ``;
   return (
