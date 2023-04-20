@@ -3756,6 +3756,13 @@ jest-message-util@^29.5.0:
     slash "^3.0.0"
     stack-utils "^2.0.3"
 
+jest-mock-extended@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/jest-mock-extended/-/jest-mock-extended-3.0.4.tgz#12a5f993d27aa46232012c439a9b7c54f3b0a1fd"
+  integrity sha512-2ynEZ7IEJNrhrgshklDMhrOdnmW4Nt+PhkyRqZxRgpwMo7JjmFWMzyp0+eSyk+H9KK1QjXI5xTZIw6x7cVDcRg==
+  dependencies:
+    ts-essentials "^7.0.3"
+
 jest-mock@^29.5.0:
   version "29.5.0"
   resolved "https://registry.npmjs.org/jest-mock/-/jest-mock-29.5.0.tgz#26e2172bcc71d8b0195081ff1f146ac7e1518aed"
@@ -5093,6 +5100,11 @@ tr46@^3.0.0:
   integrity sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA==
   dependencies:
     punycode "^2.1.1"
+
+ts-essentials@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.npmjs.org/ts-essentials/-/ts-essentials-7.0.3.tgz#686fd155a02133eedcc5362dc8b5056cde3e5a38"
+  integrity sha512-8+gr5+lqO3G84KdiTSMRLtuyJ+nTBVRKuCrK4lidMPdVeEp0uqC875uE5NMcaA7YYMN7XsNiFQuMvasF8HT/xQ==
 
 ts-node@10.9.1:
   version "10.9.1"

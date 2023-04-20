@@ -21,6 +21,9 @@ const config: Config = {
         "<rootDir>/src/components/**/*.spec.tsx",
         "<rootDir>/src/core/**/*.spec.tsx",
         "<rootDir>/src/types/**/*.spec.tsx",
+        "<rootDir>/src/components/**/*.spec.ts",
+        "<rootDir>/src/core/**/*.spec.ts",
+        "<rootDir>/src/types/**/*.spec.ts",
       ],
     },
     {
