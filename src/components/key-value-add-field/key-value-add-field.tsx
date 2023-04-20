@@ -56,7 +56,7 @@ export const KeyValueAddField = ({
     }
 
     if (isFocused) {
-      if (key && !editMode) {
+      if (key.return && !editMode) {
         setEditMode(true);
       }
 

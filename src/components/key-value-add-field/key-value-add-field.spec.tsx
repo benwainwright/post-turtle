@@ -32,6 +32,8 @@ describe("<KeyValueAddField />", () => {
     );
 
     await delay(0);
+    stdin.write("\t");
+    await delay(0);
     stdin.write("\r");
     await delay(0);
 
@@ -50,6 +52,8 @@ describe("<KeyValueAddField />", () => {
     );
 
     await delay(0);
+    stdin.write("\t");
+    await delay(0);
     stdin.write("\r");
     await delay(0);
     stdin.write(`a`);
@@ -62,75 +66,29 @@ describe("<KeyValueAddField />", () => {
     });
   });
 
-  it("Allows you to start editing the new header straight away", async () => {
-    const onChange = jest.fn();
-
-    jest.mocked(v4).mockReturnValue("mock-id");
-
-    const { stdin } = render(
-      <KeyValueAddField label="Headers" onChange={onChange} />
+  it("Renders input with actual headers correctly", async () => {
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+    const { lastFrame } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={jest.fn()}
+        fieldValue={values}
+      />
     );
 
-    await delay(0);
-    stdin.write("\r");
-    await delay(0);
-    stdin.write(`a`);
-
-    expect(onChange).toBeCalledWith({
-      "mock-id": {
-        key: "f",
-        value: "",
-      },
-    });
+    expect(stripAnsi(lastFrame() ?? "")).toEqual(
+      `
+┌──────────────────────────────────────────────────────────────────────────────┐
+│Headers                                                                       │
+│ header-name:header-value                                                     │
+│ another-header:its-value                                                     │
+│                                                                              │
+│Press enter to edit header values                                             │
+└──────────────────────────────────────────────────────────────────────────────┘
+  `.trim()
+    );
   });
-
-  // it("Renders input with actual headers correctly", async () => {
-  //   const values = {
-  //     [`test-id`]: { key: "header-name", value: "header-value" },
-  //     [`test-id-2`]: { key: "another-header", value: "its-value" },
-  //   };
-  //   const { lastFrame } = render(
-  //     <KeyValueAddField
-  //       label="Headers"
-  //       onChange={jest.fn()}
-  //       fieldValue={values}
-  //     />
-  //   );
-
-  //   expect(stripAnsi(lastFrame() ?? "")).toEqual(
-  //     `
-  // ┌──────────────────────────────────────────────────────────┐
-  // │Headers                                                   │
-  // │header-name:header-value                                  │
-  // │another-header:its-value                                  │
-  // │                                                          │
-  // │'e' to edit or 'a' for new item                           │
-  // └──────────────────────────────────────────────────────────┘
-  // `.trim()
-  //   );
-  // });
-
-  // // it("Each of the header fields can be tabbed into and edited", async () => {
-  // //   const values = {
-  // //     [`test-id`]: { key: "header-name", value: "header-value" },
-  // //     [`test-id-2`]: { key: "another-header", value: "its-value" },
-  // //   };
-  // //   const { lastFrame } = render(
-  // //     <KeyValueAddField
-  // //       label="Headers"
-  // //       onChange={jest.fn()}
-  // //       fieldValue={values}
-  // //     />
-  // //   );
-
-  // //   expect(lastFrame()).toEqual(
-  // //     `
-  // // ┌──────────────────────────────────────────────────────────┐
-  // // │Headers                                                   │
-  // // │header-name:header-value                                  │
-  // // │another-header:its-value                                  │
-  // // └──────────────────────────────────────────────────────────┘
-  // // `.trim()
-  // //   );
-  // // });
 });

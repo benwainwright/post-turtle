@@ -1,4 +1,4 @@
-import { useInput, Text } from "ink";
+import { useInput, Text, Box } from "ink";
 import { v4 } from "uuid";
 import { useState } from "react";
 import { HttpRequest } from "../../types/http-request.js";
@@ -18,8 +18,8 @@ export const App = ({ dataFile }: AppProps) => {
 
   const [editRequest, setEditRequest] = useState<HttpRequest | undefined>();
 
-  useInput((_, key) => {
-    if (key.return && !editRequest) {
+  useInput((char) => {
+    if (char === "a" && !editRequest) {
       setEditRequest({ ...DEFAULT_REQUEST, id: v4() });
     }
   });
@@ -56,10 +56,25 @@ export const App = ({ dataFile }: AppProps) => {
     );
   }
 
+  const helpText =
+    requests.length === 0 ? (
+      <Text bold>
+        You've not created any requests. Press 'a' to get started!
+      </Text>
+    ) : (
+      <Text bold>
+        Press 'a' to create a new request, 'e' to edit a request or 'd' to
+        delete a request
+      </Text>
+    );
+
   return (
-    <RequestList
-      requests={requests}
-      onTriggerEdit={(request) => setEditRequest(request)}
-    />
+    <>
+      <Box marginTop={1}>{helpText}</Box>
+      <RequestList
+        requests={requests}
+        onTriggerEdit={(request) => setEditRequest(request)}
+      />
+    </>
   );
 };

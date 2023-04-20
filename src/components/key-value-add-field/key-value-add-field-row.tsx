@@ -33,7 +33,7 @@ export const KeyValueAddFieldRow = ({
   const isEditing = Boolean(editing === id);
 
   useEffect(() => {
-    setEditingLeft((startEdit && isEditing)?? false);
+    setEditingLeft((startEdit && isEditing) ?? false);
     setEditingRight(false);
   }, [isEditing, startEdit]);
 
@@ -73,6 +73,7 @@ export const KeyValueAddFieldRow = ({
         {chevron}
         <TextInput
           value={keyName}
+          showCursor={false}
           focus={editingLeft}
           placeholder="header-name"
           onChange={(newKey) => {
@@ -81,6 +82,7 @@ export const KeyValueAddFieldRow = ({
         />
         <Text>:</Text>
         <TextInput
+          showCursor={false}
           value={value}
           focus={editingRight}
           placeholder="header-value"
