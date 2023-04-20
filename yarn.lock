@@ -2885,11 +2885,10 @@ ink-spinner@^5.0.0:
   dependencies:
     cli-spinners "^2.7.0"
 
-"ink-testing-library@https://github.com/benwainwright/ink-testing-library":
+ink-testing-library@^3.0.0:
   version "3.0.0"
-  resolved "https://github.com/benwainwright/ink-testing-library#bc208570ba2909ad714642d5fe7b586a8e50e57f"
-  dependencies:
-    "@types/node" "^18.15.11"
+  resolved "https://registry.npmjs.org/ink-testing-library/-/ink-testing-library-3.0.0.tgz#7ff9ca443557dba273cea4f278063e540c88cc93"
+  integrity sha512-ItyyoOmcm6yftb7c5mZI2HU22BWzue8PBbO3DStmY8B9xaqfKr7QJONiWOXcwVsOk/6HuVQ0v7N5xhPaR3jycA==
 
 ink-text-input@^5.0.1:
   version "5.0.1"
@@ -2899,9 +2898,10 @@ ink-text-input@^5.0.1:
     chalk "^5.2.0"
     type-fest "^3.6.1"
 
-"ink@https://github.com/benwainwright/ink":
+ink@^4.1.0:
   version "4.1.0"
-  resolved "https://github.com/benwainwright/ink#14fa641b8ca212f57dc36c34140490b39940a326"
+  resolved "https://registry.npmjs.org/ink/-/ink-4.1.0.tgz#6ae9a7c4ec8726c9601feabaff2ce015660e9075"
+  integrity sha512-cMGAHZN7aKSO3ZpOrIVE3nO95quV/Jx8MwO3TC5SR3lDAg+i16MCqKtzACnfd4mDYRN6AiZHh6eytrcxGMGsgA==
   dependencies:
     ansi-escapes "^6.0.0"
     auto-bind "^5.0.1"
@@ -2912,8 +2912,6 @@ ink-text-input@^5.0.1:
     code-excerpt "^4.0.0"
     indent-string "^5.0.0"
     is-ci "^3.0.1"
-    is-lower-case "^2.0.2"
-    is-upper-case "^2.0.2"
     lodash "^4.17.21"
     patch-console "^2.0.0"
     react-reconciler "^0.29.0"
@@ -3027,13 +3025,6 @@ is-glob@^4.0.0, is-glob@^4.0.1, is-glob@^4.0.3:
   dependencies:
     is-extglob "^2.1.1"
 
-is-lower-case@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/is-lower-case/-/is-lower-case-2.0.2.tgz#1c0884d3012c841556243483aa5d522f47396d2a"
-  integrity sha512-bVcMJy4X5Og6VZfdOZstSexlEy20Sr0k/p/b2IlQJlfdKAQuMpiv5w2Ccxb8sKdRUNAG1PnHVHjFSdRDVS6NlQ==
-  dependencies:
-    tslib "^2.0.3"
-
 is-map@^2.0.1, is-map@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/is-map/-/is-map-2.0.2.tgz#00922db8c9bf73e81b7a335827bc2a43f2b91127"
@@ -3110,13 +3101,6 @@ is-typed-array@^1.1.10:
     for-each "^0.3.3"
     gopd "^1.0.1"
     has-tostringtag "^1.0.0"
-
-is-upper-case@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/is-upper-case/-/is-upper-case-2.0.2.tgz#f1105ced1fe4de906a5f39553e7d3803fd804649"
-  integrity sha512-44pxmxAvnnAOwBg4tHPnkfvgjPwbc5QIsSstNU+YcJ1ovxVzCWpSGosPJOZh/a1tdl81fbgnLc9LLv+x2ywbPQ==
-  dependencies:
-    tslib "^2.0.3"
 
 is-weakmap@^2.0.1:
   version "2.0.1"
@@ -4528,11 +4512,6 @@ tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
-
-tslib@^2.0.3:
-  version "2.5.0"
-  resolved "https://registry.npmjs.org/tslib/-/tslib-2.5.0.tgz#42bfed86f5787aeb41d031866c8f402429e0fddf"
-  integrity sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==
 
 tsutils@^3.21.0:
   version "3.21.0"

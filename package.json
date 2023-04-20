@@ -9,8 +9,9 @@
   "dependencies": {
     "@testing-library/react": "^14.0.0",
     "commander": "^10.0.1",
-    "ink": "https://github.com/benwainwright/ink",
+    "ink": "^4.1.0",
     "ink-spinner": "^5.0.0",
+    "ink-testing-library": "^3.0.0",
     "ink-text-input": "^5.0.1",
     "jest-environment-jsdom": "^29.5.0",
     "lodash": "^4.17.21",
@@ -38,7 +39,6 @@
     "@typescript-eslint/parser": "^5.58.0",
     "delay": "^5.0.0",
     "eslint": "^8.38.0",
-    "ink-testing-library": "https://github.com/benwainwright/ink-testing-library",
     "jest": "^29.5.0",
     "prettier": "^2.8.7",
     "strip-ansi": "^7.0.1",
