@@ -59,11 +59,11 @@ export const App = ({ dataFile }: AppProps) => {
   const helpText =
     requests.length === 0 ? (
       <Text bold>
-        You've not created any requests. Press 'a' to get started!
+        You&apos;ve not created any requests. Press &apos;a&apos; to get started!
       </Text>
     ) : (
       <Text bold>
-        Press 'a' to create a new request, 'e' to edit a request or 'd' to
+        Press &apos;a&apos; to create a new request, &apos;e&apos; to edit a request or &apos;d&apos; to
         delete a request
       </Text>
     );

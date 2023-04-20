@@ -1,6 +1,18 @@
 module.exports = {
   ignorePatterns: ["dist", "node_modules"],
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  settings: {
+    react: {
+      version: "18.2.0",
+    },
+  },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+  ],
+  rules: {
+    "react/react-in-jsx-scope": "off",
+  },
   env: {
     node: true,
   },
