@@ -48,6 +48,7 @@
   "scripts": {
     "lint": "eslint .",
     "build": "tsc",
+    "check-types": "tsc --noEmit",
     "start-built": "./bin/run.js",
     "start": "ts-node --esm ./src/cli.tsx",
     "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules $(yarn bin jest) --verbose"
