@@ -21,7 +21,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:array-func/recommended",
-    "plugin:promise/recommended"
+    "plugin:promise/recommended",
   ],
   rules: {
     "react/react-in-jsx-scope": "off",
@@ -33,6 +33,7 @@ module.exports = {
   },
   parser: "@typescript-eslint/parser",
   plugins: [
+    "jest",
     "array-func",
     "@typescript-eslint",
     "promise",
@@ -49,6 +50,7 @@ module.exports = {
   overrides: [
     {
       files: ["**/*.spect.ts", "**/*.spect.tsx"],
+      extends: ["plugin:jest/recommended"],
       env: {
         jest: true,
       },
