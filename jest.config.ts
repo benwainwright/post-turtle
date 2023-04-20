@@ -7,6 +7,7 @@ const mainConfig: Config = {
     "(.+)\\.jsx": "$1",
   },
   extensionsToTreatAsEsm: [".ts", ".tsx"],
+  coveragePathIgnorePatterns: [".*\\.spec\\.ts", ".*\\.spec\\.tsx"],
 };
 
 const config: Config = {
