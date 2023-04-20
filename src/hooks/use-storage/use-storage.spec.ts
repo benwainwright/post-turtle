@@ -1,8 +1,7 @@
-import { mkdtemp, rmdir } from "fs/promises";
+import { mkdtemp, readFile, rmdir, writeFile } from "fs/promises";
 import { renderHook, waitFor, act } from "@testing-library/react";
 import { useStorage } from "./use-storage.js";
 import { join } from "node:path";
-import fs from "fs/promises";
 import os from "os";
 import { HttpRequest } from "../../types/http-request.js";
 
@@ -30,7 +29,7 @@ describe("useStorage", () => {
     expect(path).toBeDefined();
     await waitFor(async () => {
       if (path) {
-        const result = await fs.readFile(`${path}/requests.json`, `utf8`);
+        const result = await readFile(`${path}/requests.json`, `utf8`);
         expect(JSON.parse(result)).toStrictEqual([]);
       }
     });
@@ -62,7 +61,7 @@ describe("useStorage", () => {
   }
 ]`;
 
-    await fs.writeFile(`${path}/requests.json`, data);
+    await writeFile(`${path}/requests.json`, data);
 
     const { result } = renderHook(() =>
       useStorage<HttpRequest[]>(`${path}/requests.json`)
@@ -86,7 +85,7 @@ describe("useStorage", () => {
         if (result.current.loaded) {
           expect(result.current.content).toStrictEqual(dataParsed);
         }
-        const fileContents = await fs.readFile(`${path}/requests.json`, `utf8`);
+        const fileContents = await readFile(`${path}/requests.json`, `utf8`);
         expect(JSON.parse(fileContents)).toStrictEqual(dataParsed);
       });
     }
@@ -118,7 +117,7 @@ describe("useStorage", () => {
   }
 ]`;
 
-    await fs.writeFile(`${path}/requests.json`, data);
+    await writeFile(`${path}/requests.json`, data);
 
     const { result } = renderHook(() => useStorage(`${path}/requests.json`));
     await waitFor(async () => {

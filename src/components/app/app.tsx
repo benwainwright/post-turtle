@@ -46,7 +46,7 @@ export const App = ({ dataFile }: AppProps) => {
           if (index === -1) {
             update([...requests, request]);
           } else {
-            const newRequests = [...requests];
+            const newRequests = Array.from(requests);
             newRequests[index] = request;
             update(newRequests);
           }
@@ -59,12 +59,13 @@ export const App = ({ dataFile }: AppProps) => {
   const helpText =
     requests.length === 0 ? (
       <Text bold>
-        You&apos;ve not created any requests. Press &apos;a&apos; to get started!
+        You&apos;ve not created any requests. Press &apos;a&apos; to get
+        started!
       </Text>
     ) : (
       <Text bold>
-        Press &apos;a&apos; to create a new request, &apos;e&apos; to edit a request or &apos;d&apos; to
-        delete a request
+        Press &apos;a&apos; to create a new request, &apos;e&apos; to edit a
+        request or &apos;d&apos; to delete a request
       </Text>
     );
 
