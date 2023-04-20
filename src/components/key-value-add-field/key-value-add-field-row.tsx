@@ -47,8 +47,8 @@ export const KeyValueAddFieldRow = ({
     }
   }, [editingLeft, editingRight, isEditing]);
 
-  useInput((_, key) => {
-    if (key.return && isEditing) {
+  useInput((char, key) => {
+    if (char === "e" && isEditing && !editingLeft && !editingRight) {
       setEditingLeft(true);
       setEditingRight(false);
     }

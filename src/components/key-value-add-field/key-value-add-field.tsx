@@ -25,13 +25,13 @@ const getHelperText = (editStatus: EditStatus) => {
     case EditStatus.NotEditing:
       return "Press enter to edit header values";
     case EditStatus.HeaderSelected:
-      return "Press enter to edit this header";
+      return "Press 'e' to edit or 'a' to add anew header";
     case EditStatus.InKey:
       return "Press 'enter' to switch to editing header value";
     case EditStatus.InValue:
       return "Press 'enter' to save header";
     case EditStatus.Editing:
-      return "Use arrow keys and 'enter' to edit or 'a' to create a new header";
+      return "Use the arrow keys to select a header";
     case EditStatus.EditingEmpty:
       return "Press 'a' to create a new header";
   }
@@ -55,7 +55,7 @@ export const KeyValueAddField = ({
       setEditMode(false);
     }
 
-    if (key.return && !editMode) {
+    if (key && !editMode) {
       setEditMode(true);
     }
 
@@ -77,7 +77,8 @@ export const KeyValueAddField = ({
     if (
       char === "a" &&
       (editStatus === EditStatus.Editing ||
-        editStatus === EditStatus.EditingEmpty)
+        editStatus === EditStatus.EditingEmpty ||
+        editStatus === EditStatus.HeaderSelected)
     ) {
       const id = v4();
       onChange({
@@ -120,7 +121,11 @@ export const KeyValueAddField = ({
           fieldValue={fieldValue}
           onChange={onChange}
           editing={editing}
-          finishEditing={() => setEditMode(false)}
+          finishEditing={() => {
+            setEditStatus(
+              editing ? EditStatus.HeaderSelected : EditStatus.Editing
+            );
+          }}
         />
       </Box>
       <Text color="grey">{getHelperText(editStatus)}</Text>
