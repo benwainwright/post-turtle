@@ -1,11 +1,11 @@
 {
-  "name": "snail-mail",
+  "name": "post-turtle",
   "version": "1.0.0",
-  "description": "Shell based Postman alternative",
+  "description": "Postman in a shell 🐌",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "sm": "./bin/run.js"
+    "pt": "./bin/run.js"
   },
   "dependencies": {
     "cli-highlight": "^2.1.11",
