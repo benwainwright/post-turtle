@@ -10,6 +10,8 @@ jest.unstable_mockModule("cli-highlight", () => ({
 
 const { RequestList } = await import("./request-list.js");
 
+const exampleServerHost = `http://example-server.com`;
+
 describe("<RequestList>", () => {
   it("Renders a list of requestLines", () => {
     const requests: HttpRequest[] = [
@@ -18,7 +20,7 @@ describe("<RequestList>", () => {
         slug: "foo",
         title: "foo",
         method: "GET",
-        host: "http://example-server.com",
+        host: exampleServerHost,
         path: "/path",
         headers: {
           "foo-header": {
@@ -32,7 +34,7 @@ describe("<RequestList>", () => {
         slug: "foo-bar",
         title: "Foobar",
         method: "POST",
-        host: "http://example-server.com",
+        host: exampleServerHost,
         path: "/another/path",
       },
     ];
@@ -62,7 +64,7 @@ describe("<RequestList>", () => {
         slug: "foo",
         title: "foo",
         method: "GET",
-        host: "http://example-server.com",
+        host: exampleServerHost,
         path: "/path",
         headers: {
           "foo-header": {
@@ -76,7 +78,7 @@ describe("<RequestList>", () => {
         slug: "foo-bar",
         title: "Foobar",
         method: "POST",
-        host: "http://example-server.com",
+        host: exampleServerHost,
         path: "/another/path",
       },
     ];

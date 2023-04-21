@@ -8,6 +8,5 @@ interface PackageJson {
 
 export const getPackageJson = async (): Promise<PackageJson> => {
   const packageJsonPath = `${process.cwd()}/package.json`;
-  const contents = JSON.parse(await readFile(packageJsonPath, "utf8"));
-  return contents;
+  return JSON.parse(await readFile(packageJsonPath, "utf8"));
 };

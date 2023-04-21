@@ -4,6 +4,8 @@ import { useRequest } from "./use-request.js";
 import nock from "nock";
 import { FetchError } from "node-fetch";
 
+const exampleServerHost = `http://example-server.com`;
+
 describe("useRequest", () => {
   it("Starts off undefined", () => {
     const request: HttpRequest = {
@@ -11,7 +13,7 @@ describe("useRequest", () => {
       slug: "foo",
       title: "foo",
       method: "GET",
-      host: "http://example-server.com",
+      host: exampleServerHost,
       path: "/path",
       headers: {
         "foo-header": {
@@ -32,7 +34,7 @@ describe("useRequest", () => {
       slug: "foo",
       title: "foo",
       method: "GET",
-      host: "http://example-server.com",
+      host: exampleServerHost,
       path: "/path",
       headers: {
         "foo-header": {
@@ -71,7 +73,7 @@ describe("useRequest", () => {
       slug: "foo",
       title: "foo",
       method: "GET",
-      host: "http://example-server.com",
+      host: exampleServerHost,
       path: "/path",
       headers: {
         "foo-header": {

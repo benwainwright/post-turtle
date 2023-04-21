@@ -22,6 +22,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:array-func/recommended",
     "plugin:promise/recommended",
+    "plugin:sonarjs/recommended",
     "problems",
   ],
   rules: {
@@ -44,6 +45,7 @@ module.exports = {
     "import",
     "only-error",
     "prettier",
+    "sonarjs",
   ],
   root: true,
   parserOptions: {

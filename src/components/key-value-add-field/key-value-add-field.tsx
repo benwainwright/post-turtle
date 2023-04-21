@@ -1,9 +1,11 @@
 import { useInput, Text, Box, useFocus } from "ink";
 import { KeyValueAddFieldEntries } from "./key-value-add-field-entries.js";
-import { v4 } from "uuid";
 import { Header } from "../../types/header.js";
 import { useEffect, useState } from "react";
 import { INPUT_WIDTH } from "../../core/constants.js";
+import { setNext } from "./set-next.js";
+import { setPrevious } from "./set-previous.js";
+import { createNew } from "./create-new.js";
 
 export enum EditStatus {
   NotEditing = "NotEditing",
@@ -49,30 +51,25 @@ export const KeyValueAddField = ({
     EditStatus.NotEditing
   );
 
-  useInput((char, key) => {
+  useInput(() => {
     if (!isFocused && editMode) {
       setEditing(undefined);
       setEditMode(false);
     }
+  });
 
+  useInput((char, key) => {
     if (isFocused) {
       if (key.return && !editMode) {
         setEditMode(true);
       }
 
       if (key.downArrow && editMode && EditStatus.Editing) {
-        const entries = Object.keys(fieldValue ?? {});
-        const currentIndex = entries.indexOf(editing ?? "");
-        const next =
-          currentIndex === entries.length - 1 ? currentIndex : currentIndex + 1;
-        setEditing(entries[next]);
+        setNext(fieldValue, editing, setEditing);
       }
 
       if (key.upArrow && editMode && EditStatus.Editing) {
-        const entries = Object.keys(fieldValue ?? {});
-        const currentIndex = entries.indexOf(editing ?? "");
-        const prev = currentIndex === 0 ? currentIndex : currentIndex - 1;
-        setEditing(entries[prev]);
+        setPrevious(fieldValue, editing, setEditing);
       }
 
       if (
@@ -81,12 +78,7 @@ export const KeyValueAddField = ({
           editStatus === EditStatus.EditingEmpty ||
           editStatus === EditStatus.HeaderSelected)
       ) {
-        const id = v4();
-        onChange({
-          ...fieldValue,
-          [id]: { key: "", value: "" },
-        });
-        setEditing(id);
+        createNew(fieldValue, onChange, setEditing);
       }
     }
   });
