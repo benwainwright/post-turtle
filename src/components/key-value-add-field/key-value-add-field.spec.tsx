@@ -51,11 +51,11 @@ describe("<KeyValueAddField />", () => {
       <KeyValueAddField label="Headers" onChange={onChange} />
     );
 
-    await delay(0);
+    await delay(20);
     stdin.write("\t");
-    await delay(0);
+    await delay(20);
     stdin.write("\r");
-    await delay(0);
+    await delay(20);
     stdin.write(`a`);
 
     expect(onChange).toBeCalledWith({
