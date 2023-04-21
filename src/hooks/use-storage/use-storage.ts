@@ -9,6 +9,7 @@ interface StorageLoading {
 interface StorageLoaded<T> {
   loaded: true;
   content: T;
+
   update: (data: T) => Promise<void>;
 }
 

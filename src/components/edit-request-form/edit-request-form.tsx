@@ -8,18 +8,17 @@ import { HTTP_METHODS } from "../../core/http-methods.js";
 import { HttpMethod } from "../../types/http-method.js";
 import { KeyValueAddField } from "../key-value-add-field/index.js";
 
-interface EditRequestForm {
+interface EditRequestFormProps {
   initalValue: HttpRequest;
   onSave: (request: HttpRequest) => void;
   onCancel: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const EditRequestForm = ({
   onSave,
   onCancel,
   initalValue,
-}: EditRequestForm) => {
+}: EditRequestFormProps) => {
   const [request, setRequest] = useState(initalValue);
 
   return (

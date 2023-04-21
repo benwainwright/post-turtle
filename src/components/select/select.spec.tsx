@@ -42,7 +42,7 @@ describe("<Select />", () => {
     await delay(0);
     stdin.write(`${arrowRight}`);
     await delay(0);
-    expect(onChange).toBeCalledWith("Bar");
+    expect(onChange).toHaveBeenCalledWith("Bar");
   });
 
   it("Calls the onChange handler with the correct value when you move the value to the left", async () => {
@@ -61,7 +61,7 @@ describe("<Select />", () => {
     await delay(0);
     stdin.write(`${arrowLeft}`);
     await delay(0);
-    expect(onChange).toBeCalledWith("Foo");
+    expect(onChange).toHaveBeenCalledWith("Foo");
   });
 
   it("Doesn't move the selected item if already at the start of the list", async () => {
@@ -80,7 +80,7 @@ describe("<Select />", () => {
     await delay(0);
     stdin.write(`${arrowLeft}`);
     await delay(0);
-    expect(onChange).toBeCalledWith("Foo");
+    expect(onChange).toHaveBeenCalledWith("Foo");
   });
 
   it("Doesn't move the selected item if already at the end of the list", async () => {

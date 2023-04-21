@@ -26,13 +26,13 @@ const call = program
   );
 
 const data = await loadData();
-data.forEach((request) =>
+data.forEach((request) => {
   call
     .command(request.slug)
     .description(request.title)
     .action(() => {
       render(<RequestLine request={request} immediateTrigger />);
-    })
-);
+    });
+});
 
 program.parse();

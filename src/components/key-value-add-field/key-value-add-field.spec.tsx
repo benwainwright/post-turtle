@@ -60,7 +60,7 @@ describe("<KeyValueAddField />", () => {
     stdin.write(`a`);
     await delay(20);
 
-    expect(onChange).toBeCalledWith({
+    expect(onChange).toHaveBeenCalledWith({
       "mock-id": {
         key: "",
         value: "",

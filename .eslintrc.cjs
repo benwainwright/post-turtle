@@ -22,8 +22,11 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:array-func/recommended",
     "plugin:promise/recommended",
+    "problems",
   ],
   rules: {
+    "no-unused-vars": "off",
+    "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
     "filenames/match-regex": ["error", "^\\.?[a-z-\\.]+$", true],
     "import/no-default-export": "error",
@@ -40,6 +43,7 @@ module.exports = {
     "filenames",
     "import",
     "only-error",
+    "prettier",
   ],
   root: true,
   parserOptions: {
@@ -49,8 +53,11 @@ module.exports = {
 
   overrides: [
     {
-      files: ["**/*.spect.ts", "**/*.spect.tsx"],
+      files: ["**/*.spec.ts", "**/*.spec.tsx"],
       extends: ["plugin:jest/recommended"],
+      rules: {
+        "jest/no-conditional-expect": "off",
+      },
       env: {
         jest: true,
       },

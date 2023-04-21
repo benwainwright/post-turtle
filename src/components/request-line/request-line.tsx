@@ -95,7 +95,7 @@ export const RequestLine = ({
                 </Box>
                 <Box flexDirection="column">
                   <Text>
-                    {/* eslint-disable-next-line import/no-named-as-default-member */}
+                    {}
                     {highlight(response.body, { language: "json" })}
                   </Text>
                 </Box>
