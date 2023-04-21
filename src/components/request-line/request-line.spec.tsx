@@ -4,6 +4,7 @@ import { HttpRequest } from "../../types/http-request.js";
 import { jest } from "@jest/globals";
 import stripAnsi from "strip-ansi";
 import delay from "delay";
+
 describe("<RequestLine>", () => {
   it("Renders the correct output", () => {
     const request: HttpRequest = {
