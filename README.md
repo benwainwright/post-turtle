@@ -6,3 +6,13 @@
 
 This project is in its _very_ early stages. I make no guarantee about quality,
 and the feature set is definitely a little thin on the ground at the moment
+
+## Install
+
+`npm install -g post-turtle`
+
+## Usage
+
+* Start interactive mode - `pt`
+* Call saved command - `pt call <slug>`
+
