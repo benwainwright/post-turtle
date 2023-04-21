@@ -1,7 +1,11 @@
-import { render } from "ink-testing-library";
+import { cleanup, render } from "ink-testing-library";
 import { jest } from "@jest/globals";
 import { Button } from "./button.js";
 import delay from "delay";
+
+beforeEach(() => {
+  cleanup();
+});
 
 describe("<Button>", () => {
   it("Renders the button with the correct label", () => {

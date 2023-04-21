@@ -1,6 +1,10 @@
 import { Input } from "./input.js";
-import { render } from "ink-testing-library";
+import { cleanup, render } from "ink-testing-library";
 import { jest } from "@jest/globals";
+
+beforeEach(() => {
+  cleanup();
+});
 
 describe("<Input>", () => {
   it("Renders the input correctly", () => {
