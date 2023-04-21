@@ -57,6 +57,7 @@ describe("<KeyValueAddField />", () => {
     stdin.write("\r");
     await delay(20);
     stdin.write(`a`);
+    await delay(20);
 
     expect(onChange).toBeCalledWith({
       "mock-id": {

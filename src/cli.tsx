@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import { render } from "ink";
-import { App } from "./components/app/app.js";
+import { App } from "./components/app/index.js";
 import { program } from "commander";
 import { loadData } from "./core/load-data.js";
-import { RequestLine } from "./components/request-line/request-line.js";
+import { RequestLine } from "./components/request-line/index.js";
 
 program
   .option("-c, --config <path>")
