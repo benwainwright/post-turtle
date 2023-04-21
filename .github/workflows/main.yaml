@@ -3,6 +3,9 @@ concurrency:
   group: mainline
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
