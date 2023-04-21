@@ -8,11 +8,7 @@ interface SimpleResponse {
   body: string;
 }
 
-const withoutWhitespaceAtLineEnd = (text: string) =>
-  text
-    .split(/\n/)
-    .map((line) => line.replace(/\s+$/, ""))
-    .join("\n");
+const formatJson = (text: string) => JSON.stringify(JSON.parse(text), null, 2);
 
 export const useRequest = (request: HttpRequest) => {
   const [response, setResponse] = useState<
@@ -36,7 +32,7 @@ export const useRequest = (request: HttpRequest) => {
           ])
         ),
       });
-      const body = withoutWhitespaceAtLineEnd(await fetchResponse.text());
+      const body = formatJson(await fetchResponse.text());
       setResponse({ statusCode: fetchResponse.status, body });
       setLoading(false);
     } catch (error) {

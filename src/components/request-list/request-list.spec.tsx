@@ -1,9 +1,14 @@
 import { render } from "ink-testing-library";
 import { HttpRequest } from "../../types/http-request.js";
-import { RequestList } from "./request-list.js";
 import { jest } from "@jest/globals";
 import stripAnsi from "strip-ansi";
 import delay from "delay";
+
+jest.unstable_mockModule("cli-highlight", () => ({
+  highlight: (thing: unknown) => thing,
+}));
+
+const { RequestList } = await import("./request-list.js");
 
 describe("<RequestList>", () => {
   it("Renders a list of requestLines", () => {

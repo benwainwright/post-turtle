@@ -5,6 +5,7 @@ import Spinner from "ink-spinner";
 import { FetchError } from "node-fetch";
 import { useEffect } from "react";
 import { normaliseRequest } from "../../core/normalise-request.js";
+import { highlight } from "cli-highlight";
 
 interface RequestLineProps {
   request: HttpRequest;
@@ -71,7 +72,7 @@ export const RequestLine = ({
           </Box>
         )}
         {loading && (
-          <Box>
+          <Box marginTop={1}>
             <Text>
               <Text color="green">
                 <Spinner type="dots" />
@@ -88,14 +89,14 @@ export const RequestLine = ({
             </Text>
             {response && !(response instanceof FetchError) && (
               <>
-                <Box>
-                  <Text bold>Status Code: </Text>
+                <Box marginBottom={1} flexDirection="column">
+                  <Text bold>Status Code</Text>
                   <Text>{response.statusCode}</Text>
                 </Box>
-                <Box>
-                  <Text bold>Body: </Text>
-                  <Text backgroundColor="grey" color="black">
-                    {response.body}
+                <Box flexDirection="column">
+                  <Text>
+                    {/* eslint-disable-next-line import/no-named-as-default-member */}
+                    {highlight.highlight(response.body, { language: "json" })}
                   </Text>
                 </Box>
               </>

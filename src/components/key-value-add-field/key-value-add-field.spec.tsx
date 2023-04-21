@@ -8,6 +8,7 @@ jest.unstable_mockModule("uuid", () => ({
 }));
 
 const { KeyValueAddField } = await import("./key-value-add-field.js");
+
 const { v4 } = await import("uuid");
 
 beforeEach(() => {
