@@ -4,6 +4,11 @@
   "description": "Postman in a shell 🐢",
   "type": "module",
   "license": "MIT",
+  "author": {
+    "name": "Ben Wainwright",
+    "email": "bwainwright28@gmail.com",
+    "url": "https://benwainwright.me"
+  },
   "bin": {
     "pt": "./bin/run.js"
   },
