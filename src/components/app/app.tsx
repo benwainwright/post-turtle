@@ -14,7 +14,9 @@ interface AppProps {
 }
 
 export const App = ({ dataFile }: AppProps) => {
-  const storageResult = useStorage<HttpRequest[]>(dataFile ?? defaultDatafile);
+  const storageResult = useStorage<HttpRequest[]>(
+    dataFile ?? defaultDatafile()
+  );
 
   const [editRequest, setEditRequest] = useState<HttpRequest | undefined>();
 
