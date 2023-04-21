@@ -4,6 +4,7 @@ import { useRequest } from "../../hooks/use-request/use-request.js";
 import Spinner from "ink-spinner";
 import { FetchError } from "node-fetch";
 import { useEffect } from "react";
+import { normaliseRequest } from "../../core/normalise-request.js";
 
 interface RequestLineProps {
   request: HttpRequest;
@@ -11,14 +12,19 @@ interface RequestLineProps {
   immediateTrigger?: boolean;
 }
 
-export const RequestLine = (props: RequestLineProps) => {
+export const RequestLine = ({
+  request: rawRequest,
+  onTriggerEdit,
+  immediateTrigger,
+}: RequestLineProps) => {
   const { isFocused } = useFocus();
-  const { loading, trigger, response } = useRequest(props.request);
+  const request = normaliseRequest(rawRequest);
+  const { loading, trigger, response } = useRequest(request);
   const { exit } = useApp();
 
   useInput(async (char) => {
     if (char === "e" && isFocused) {
-      props.onTriggerEdit?.();
+      onTriggerEdit?.();
     }
 
     if (char === "t" && isFocused) {
@@ -28,14 +34,14 @@ export const RequestLine = (props: RequestLineProps) => {
 
   useEffect(() => {
     (async () => {
-      if (props.immediateTrigger) {
+      if (immediateTrigger) {
         await trigger();
         exit();
       }
     })();
   }, []);
 
-  const pathString = props.request.path ? `/${props.request.path}` : ``;
+  const pathString = request.path ? `/${request.path}` : ``;
   return (
     <Box
       flexDirection="column"
@@ -45,17 +51,17 @@ export const RequestLine = (props: RequestLineProps) => {
       <Box flexDirection="column">
         <Box gap={2}>
           <Text bold color="blue">
-            {props.request.title}
+            {request.title}
           </Text>
-          <Text>{props.request.method}</Text>
+          <Text>{request.method}</Text>
           <Text>
-            {props.request.host}
+            {request.host}
             {pathString}
           </Text>
         </Box>
-        {props.request.headers && (
+        {request.headers && (
           <Box marginTop={1} flexDirection="column">
-            {Object.entries(props.request.headers ?? {}).map(([id, value]) => (
+            {Object.entries(request.headers ?? {}).map(([id, value]) => (
               <Box key={`header-line-${id}`} flexDirection="row">
                 <Text bold>{value.key}</Text>
                 <Text>: </Text>
