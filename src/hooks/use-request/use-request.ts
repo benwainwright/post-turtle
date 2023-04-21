@@ -15,7 +15,9 @@ const withoutWhitespaceAtLineEnd = (text: string) =>
     .join("\n");
 
 export const useRequest = (request: HttpRequest) => {
-  const [response, setResponse] = useState<SimpleResponse | FetchError>();
+  const [response, setResponse] = useState<
+    SimpleResponse | FetchError | undefined
+  >();
   const [loading, setLoading] = useState(false);
   const trigger = async () => {
     try {

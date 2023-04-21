@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@testing-library/react": "14.0.0",
+    "@types/nock": "^11.1.0",
     "commander": "10.0.1",
     "ink": "4.1.0",
     "ink-spinner": "5.0.0",
@@ -16,6 +17,7 @@
     "jest-environment-jsdom": "29.5.0",
     "jest-mock-extended": "^3.0.4",
     "lodash": "4.17.21",
+    "nock": "^13.3.0",
     "node-fetch": "3.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
