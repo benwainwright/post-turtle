@@ -4,6 +4,7 @@ import { INPUT_WIDTH } from "../../core/constants.js";
 
 interface InputProps {
   label: string;
+  id?: string;
   value: string;
   placeholder?: string;
   onChange: (value: string) => void;

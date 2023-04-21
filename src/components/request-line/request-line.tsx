@@ -6,6 +6,7 @@ import { FetchError } from "node-fetch";
 import { useEffect } from "react";
 import { normaliseRequest } from "../../core/normalise-request.js";
 import { highlight } from "cli-highlight";
+import { RequestFields } from "../request-fields/index.js";
 
 interface RequestLineProps {
   request: HttpRequest;
@@ -20,7 +21,10 @@ export const RequestLine = ({
 }: RequestLineProps) => {
   const { isFocused } = useFocus();
   const request = normaliseRequest(rawRequest);
-  const { loading, trigger, response } = useRequest(request);
+
+  const { loading, trigger, response, fields, setFields, hasFields } =
+    useRequest(request);
+
   const { exit } = useApp();
 
   useInput(async (char) => {
@@ -70,6 +74,9 @@ export const RequestLine = ({
               </Box>
             ))}
           </Box>
+        )}
+        {isFocused && hasFields && (
+          <RequestFields fields={fields} setFields={setFields} />
         )}
         {loading && (
           <Box marginTop={1}>

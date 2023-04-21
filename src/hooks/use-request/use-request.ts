@@ -2,6 +2,8 @@ import { useState } from "react";
 import { HttpRequest } from "../../types/http-request.js";
 import fetch, { FetchError } from "node-fetch";
 import { normaliseRequest } from "../../core/normalise-request.js";
+import { parseRequestFields } from "../../components/request-line/parse-request-fields.js";
+import { hydrateRequest } from "./hydrate-request.js";
 
 interface SimpleResponse {
   statusCode: number;
@@ -15,11 +17,16 @@ export const useRequest = (request: HttpRequest) => {
     SimpleResponse | FetchError | undefined
   >();
   const [loading, setLoading] = useState(false);
+  const { fields: parsedFields, hasFields } = parseRequestFields(request);
+  const [fields, setFields] = useState(parsedFields);
+
   const trigger = async () => {
     try {
       setLoading(true);
 
-      const normalisedRequest = normaliseRequest(request);
+      const normalisedRequest = normaliseRequest(
+        hydrateRequest(request, fields)
+      );
 
       const url = `${normalisedRequest.host}/${normalisedRequest.path}`;
       const fetchResponse = await fetch(url, {
@@ -38,10 +45,10 @@ export const useRequest = (request: HttpRequest) => {
     } catch (error) {
       if (error instanceof FetchError) {
         setResponse(error);
-        setLoading(false);
       }
+      setLoading(false);
     }
   };
 
-  return { trigger, loading, response };
+  return { trigger, loading, response, fields, setFields, hasFields };
 };
