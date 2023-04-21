@@ -1,6 +1,6 @@
 # post-turtle 🐢
 
-`post-turtle` is a simple shell based [Postman](https://www.postman.com/) alternative written in TypeScript, designed to help developers make quick API requests on the fly without having to use something as heavy as Postman
+`post-turtle` is a simple shell based [Postman](https://www.postman.com/) alternative written in TypeScript. It is designed to help developers make quick API requests on the fly without having to use something as heavy as Postman
 
 ## Disclaimer
 
