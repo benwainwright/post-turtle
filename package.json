@@ -1,7 +1,7 @@
 {
   "name": "post-turtle",
   "version": "1.0.0",
-  "description": "Postman in a shell 🐌",
+  "description": "Postman in a shell 🐢",
   "type": "module",
   "license": "MIT",
   "bin": {
