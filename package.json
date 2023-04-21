@@ -1,10 +1,11 @@
 {
-  "name": "api-tester",
+  "name": "snail-mail",
   "version": "1.0.0",
+  "description": "Shell based Postman alternative",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "api-tester": "./bin/run.js"
+    "sm": "./bin/run.js"
   },
   "dependencies": {
     "@testing-library/react": "14.0.0",

@@ -5,12 +5,13 @@ import { App } from "./components/app/index.js";
 import { program } from "commander";
 import { loadData } from "./core/load-data.js";
 import { RequestLine } from "./components/request-line/index.js";
+import { getVersionFromPackageJson } from "./core/get-version-from-package-json.js";
 
 program
   .option("-c, --config <path>")
   .name("api-tester")
   .description("Shell based Postman replacement")
-  .version("0.0.1");
+  .version(await getVersionFromPackageJson());
 
 program.action(() => {
   render(<App />);
