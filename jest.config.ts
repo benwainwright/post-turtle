@@ -13,6 +13,14 @@ const mainConfig: Config = {
 const config: Config = {
   collectCoverage: true,
   collectCoverageFrom: ["<rootDir>/src/**/*"],
+  coverageThreshold: {
+    global: {
+      branches: 47,
+      statements: 53,
+      functions: 48,
+      lines: 53,
+    },
+  },
   projects: [
     {
       ...mainConfig,
