@@ -35,7 +35,7 @@ describe("useStorage", () => {
     });
   });
 
-  it("Calling the update method results in the file being updated and the updated data being returned from the hook", async () => {
+  it("calling the update method results in the file being updated and the updated data being returned from the hook", async () => {
     const data = `[
   {
     "id": "39f45798-94fd-4a79-b9d5-164aaeddb412",
