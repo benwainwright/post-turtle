@@ -1,5 +1,5 @@
 import { mkdtemp, rmdir, writeFile } from "fs/promises";
-import { getVersionFromPackageJson } from "./get-version-from-package-json.js";
+import { getPackageJson } from "./get-package-json.js";
 import os from "os";
 import { join } from "node:path";
 let path: string | undefined;
@@ -22,10 +22,11 @@ describe("getVersionFromPackageJson", () => {
   it("Returns the version from the package.json file in the cwd", async () => {
     await writeFile(
       `${path}/package.json`,
-      JSON.stringify({ version: "0.5.0" })
+      JSON.stringify({ version: "0.5.0", description: "foo" })
     );
 
-    const version = await getVersionFromPackageJson();
-    expect(version).toEqual("0.5.0");
+    const packageJson = await getPackageJson();
+    expect(packageJson.version).toEqual("0.5.0");
+    expect(packageJson.description).toEqual("foo");
   });
 });
