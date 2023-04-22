@@ -45,7 +45,7 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
           }}
         />
       ))}
-      {Object.entries(fields.headers ?? {}).flatMap(([key, value]) => {
+      {Object.entries(fields.headers).flatMap(([key, value]) => {
         return value.map((headerField, index) => (
           <Input
             key={`body-${headerField.name}`}
