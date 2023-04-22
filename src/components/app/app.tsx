@@ -9,6 +9,7 @@ import { useStorage } from "../../hooks/use-storage/use-storage.js";
 import { normaliseRequest } from "../../core/normalise-request.js";
 import { defaultDatafile } from "../../core/default-data-file-path.js";
 import { TriggerForm } from "../trigger-form/index.js";
+import { ConfirmDialog } from "../confirm-dialog/confirm-dialog.js";
 
 interface AppProps {
   dataFile?: string;
@@ -21,9 +22,12 @@ export const App = ({ dataFile }: AppProps) => {
 
   const [editRequest, setEditRequest] = useState<HttpRequest | undefined>();
   const [triggerForm, setTriggerForm] = useState<HttpRequest | undefined>();
+  const [deleteRequest, setDeleteRequest] = useState<HttpRequest | undefined>();
+
+  const dialogVisible = editRequest || triggerForm || deleteRequest;
 
   useInput((char) => {
-    if (char === "a" && !editRequest) {
+    if (char === "a" && !dialogVisible) {
       setEditRequest({ ...DEFAULT_REQUEST, id: v4() });
     }
   });
@@ -42,6 +46,24 @@ export const App = ({ dataFile }: AppProps) => {
   }
 
   const { content: requests, update } = storageResult;
+
+  if (deleteRequest) {
+    return (
+      <ConfirmDialog
+        message="Are you sure you want to delete this request?"
+        onCancel={() => setDeleteRequest(undefined)}
+        onOk={() => {
+          const index = requests.findIndex(
+            (needle) => needle === deleteRequest
+          );
+          const newRequests = Array.from(requests);
+          newRequests.splice(index);
+          update(newRequests);
+          setDeleteRequest(undefined);
+        }}
+      />
+    );
+  }
 
   if (editRequest) {
     return (
@@ -87,9 +109,20 @@ export const App = ({ dataFile }: AppProps) => {
       <Box marginTop={1}>{helpText}</Box>
       <RequestList
         requests={requests}
-        onTriggerEdit={(request) => setEditRequest(request)}
+        onTriggerDelete={(request) => {
+          if (!dialogVisible) {
+            setDeleteRequest(request);
+          }
+        }}
+        onTriggerEdit={(request) => {
+          if (!dialogVisible) {
+            setEditRequest(request);
+          }
+        }}
         onShowTriggerDialog={(request) => {
-          setTriggerForm(request);
+          if (!dialogVisible) {
+            setTriggerForm(request);
+          }
         }}
       />
     </>

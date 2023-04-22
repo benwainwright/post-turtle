@@ -6,6 +6,7 @@ import { normaliseRequest } from "../../core/normalise-request.js";
 interface RequestLineProps {
   request: HttpRequest;
   onTriggerEdit?: () => void;
+  onTriggerDelete?: () => void;
   onShowTriggerDialog?: (request: HttpRequest) => void;
   immediateTrigger?: boolean;
 }
@@ -13,12 +14,16 @@ interface RequestLineProps {
 export const RequestLine = ({
   request: rawRequest,
   onTriggerEdit,
+  onTriggerDelete,
   onShowTriggerDialog,
 }: RequestLineProps) => {
   const { isFocused } = useFocus();
   const request = normaliseRequest(rawRequest);
 
   useInput(async (char) => {
+    if (char === "d" && isFocused) {
+      onTriggerDelete?.();
+    }
     if (char === "e" && isFocused) {
       onTriggerEdit?.();
     }
