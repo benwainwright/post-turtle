@@ -1,7 +1,11 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { render, cleanup } from "ink-testing-library";
 import { jest } from "@jest/globals";
 import delay from "delay";
 import stripAnsi from "strip-ansi";
+
+const arrowUp = "\u001B[A";
+const arrowDown = "\u001B[B";
 
 jest.unstable_mockModule("uuid", () => ({
   v4: jest.fn(),
@@ -66,6 +70,182 @@ describe("<KeyValueAddField />", () => {
         value: "",
       },
     });
+  });
+
+  it("allows you to use the up arrow to move up the list of headers", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin, lastFrame } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowUp);
+
+    expect(stripAnsi(lastFrame() ?? "")).toContain(
+      "› header-name:header-value"
+    );
+  });
+
+  it("won't go past the top of the list of headers", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin, lastFrame } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowUp);
+    await delay(20);
+    stdin.write(arrowUp);
+    await delay(20);
+    stdin.write(arrowUp);
+
+    expect(stripAnsi(lastFrame() ?? "")).toContain(
+      "› header-name:header-value"
+    );
+  });
+
+  it("Won't go past the bottom of the list", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin, lastFrame } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+
+    expect(stripAnsi(lastFrame() ?? "")).toContain(
+      "› another-header:its-value"
+    );
+  });
+
+  it("allows you to use the down arrow to move down the list of headers", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin, lastFrame } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+
+    expect(stripAnsi(lastFrame() ?? "")).toContain(
+      "› another-header:its-value"
+    );
+  });
+
+  it("Won't go past the bottom of the list", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin, lastFrame } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(arrowDown);
+
+    expect(stripAnsi(lastFrame() ?? "")).toContain(
+      "› another-header:its-value"
+    );
   });
 
   it("Renders input with actual headers correctly", async () => {
