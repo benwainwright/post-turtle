@@ -21,6 +21,9 @@ export const RequestDetail = ({ request }: RequestDetailProps) => {
       </Box>
       {request.headers && (
         <Box marginTop={1} flexDirection="column">
+          <Text bold color="blue">
+            Headers
+          </Text>
           {Object.entries(request.headers ?? {}).map(([id, value]) => (
             <Box key={`header-line-${id}`} flexDirection="row">
               <Text bold>{value.key}</Text>
