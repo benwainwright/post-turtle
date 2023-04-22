@@ -1,7 +1,6 @@
 import { Box, Text } from "ink";
 import Spinner from "ink-spinner";
 import { HttpRequest } from "../../types/http-request.js";
-import { Input } from "../input/index.js";
 import { useRequest } from "../../hooks/use-request/index.js";
 import { FetchError } from "node-fetch";
 import { highlight } from "cli-highlight";

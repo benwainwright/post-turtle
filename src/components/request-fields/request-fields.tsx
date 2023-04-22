@@ -1,4 +1,3 @@
-import { Box } from "ink";
 import { HttpRequestWithFields } from "../../types/http-request-with-field.js";
 import { Input } from "../input/input.js";
 
