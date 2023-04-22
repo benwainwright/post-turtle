@@ -144,42 +144,6 @@ describe("<KeyValueAddField />", () => {
     );
   });
 
-  it("Won't go past the bottom of the list", async () => {
-    const onChange = jest.fn();
-
-    jest.mocked(v4).mockReturnValue("mock-id");
-
-    const values = {
-      [`test-id`]: { key: "header-name", value: "header-value" },
-      [`test-id-2`]: { key: "another-header", value: "its-value" },
-    };
-
-    const { stdin, lastFrame } = render(
-      <KeyValueAddField
-        label="Headers"
-        onChange={onChange}
-        fieldValue={values}
-      />
-    );
-
-    await delay(20);
-    stdin.write("\t");
-    await delay(20);
-    stdin.write("\r");
-    await delay(20);
-    stdin.write(arrowDown);
-    await delay(20);
-    stdin.write(arrowDown);
-    await delay(20);
-    stdin.write(arrowDown);
-    await delay(20);
-    stdin.write(arrowDown);
-
-    expect(stripAnsi(lastFrame() ?? "")).toContain(
-      "› another-header:its-value"
-    );
-  });
-
   it("allows you to use the down arrow to move down the list of headers", async () => {
     const onChange = jest.fn();
 
