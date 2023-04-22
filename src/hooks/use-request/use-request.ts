@@ -4,6 +4,7 @@ import fetch, { FetchError } from "node-fetch";
 import { normaliseRequest } from "../../core/normalise-request.js";
 import { parseRequestFields } from "../../components/request-line/parse-request-fields.js";
 import { hydrateRequest } from "./hydrate-request.js";
+import { HttpRequestWithFields } from "../../types/http-request-with-field.js";
 
 interface SimpleResponse {
   statusCode: number;
@@ -19,21 +20,20 @@ export const useRequest = (request: HttpRequest) => {
   const [loading, setLoading] = useState(false);
   const { fields: parsedFields, hasFields } = parseRequestFields(request);
   const [fields, setFields] = useState(parsedFields);
+  const [fieldsEdited, setFieldsEdited] = useState(false);
+
+  const finalRequest = normaliseRequest(hydrateRequest(request, fields));
 
   const trigger = async () => {
     try {
       setLoading(true);
 
-      const normalisedRequest = normaliseRequest(
-        hydrateRequest(request, fields)
-      );
-
-      const url = `${normalisedRequest.host}/${normalisedRequest.path}`;
+      const url = `${finalRequest.host}/${finalRequest.path}`;
       const fetchResponse = await fetch(url, {
-        method: normalisedRequest.method,
-        body: normalisedRequest.body,
+        method: finalRequest.method,
+        body: finalRequest.body,
         headers: Object.fromEntries(
-          Object.entries(normalisedRequest.headers ?? {}).map(([, value]) => [
+          Object.entries(finalRequest.headers ?? {}).map(([, value]) => [
             value.key,
             value.value,
           ])
@@ -50,5 +50,19 @@ export const useRequest = (request: HttpRequest) => {
     }
   };
 
-  return { trigger, loading, response, fields, setFields, hasFields };
+  return {
+    trigger,
+    loading,
+    response,
+    fields,
+    finalRequest,
+    fieldsEdited,
+    setFields: (fields: HttpRequestWithFields) => {
+      if (!fieldsEdited) {
+        setFieldsEdited(true);
+      }
+      setFields(fields);
+    },
+    hasFields,
+  };
 };

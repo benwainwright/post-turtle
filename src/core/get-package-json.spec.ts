@@ -7,7 +7,7 @@ let path: string | undefined;
 const oldCwd = process.cwd;
 
 beforeEach(async () => {
-  path = await mkdtemp(join(os.tmpdir(), "use-storage-test-"));
+  path = await mkdtemp(join(os.tmpdir(), "package-json-test"));
   process.cwd = () => path ?? "";
 });
 

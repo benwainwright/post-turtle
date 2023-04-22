@@ -1,3 +1,4 @@
+import { Box } from "ink";
 import { HttpRequestWithFields } from "../../types/http-request-with-field.js";
 import { Input } from "../input/input.js";
 
@@ -8,7 +9,7 @@ interface RequestFieldsProps {
 
 export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
   return (
-    <>
+    <Box marginY={1} marginLeft={5}>
       {fields.host.map((hostField, index) => (
         <Input
           key={`host-${hostField.name}`}
@@ -38,6 +39,7 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
           key={`path-${pathField.name}`}
           label={pathField.name}
           value={pathField.data}
+          focus={true}
           onChange={(value) => {
             const newPath = Array.from(fields.path);
             newPath[index].data = value;
@@ -45,6 +47,6 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
           }}
         />
       ))}
-    </>
+    </Box>
   );
 };

@@ -8,6 +8,7 @@ import { RequestList } from "../request-list/request-list.js";
 import { useStorage } from "../../hooks/use-storage/use-storage.js";
 import { normaliseRequest } from "../../core/normalise-request.js";
 import { defaultDatafile } from "../../core/default-data-file-path.js";
+import { TriggerForm } from "../trigger-form/index.js";
 
 interface AppProps {
   dataFile?: string;
@@ -19,6 +20,7 @@ export const App = ({ dataFile }: AppProps) => {
   );
 
   const [editRequest, setEditRequest] = useState<HttpRequest | undefined>();
+  const [triggerForm, setTriggerForm] = useState<HttpRequest | undefined>();
 
   useInput((char) => {
     if (char === "a" && !editRequest) {
@@ -28,6 +30,15 @@ export const App = ({ dataFile }: AppProps) => {
 
   if (!storageResult.loaded) {
     return <Text>Loading requests from disk</Text>;
+  }
+
+  if (triggerForm) {
+    return (
+      <TriggerForm
+        request={triggerForm}
+        onClose={() => setTriggerForm(undefined)}
+      />
+    );
   }
 
   const { content: requests, update } = storageResult;
@@ -77,6 +88,9 @@ export const App = ({ dataFile }: AppProps) => {
       <RequestList
         requests={requests}
         onTriggerEdit={(request) => setEditRequest(request)}
+        onShowTriggerDialog={(request) => {
+          setTriggerForm(request);
+        }}
       />
     </>
   );

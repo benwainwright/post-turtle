@@ -8,9 +8,16 @@ interface InputProps {
   value: string;
   placeholder?: string;
   onChange: (value: string) => void;
+  focus?: boolean;
 }
 
-export const Input = ({ label, value, onChange, placeholder }: InputProps) => {
+export const Input = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  focus,
+}: InputProps) => {
   const { isFocused } = useFocus();
   return (
     <Box
@@ -26,7 +33,7 @@ export const Input = ({ label, value, onChange, placeholder }: InputProps) => {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        focus={isFocused}
+        focus={focus ?? isFocused}
       />
     </Box>
   );

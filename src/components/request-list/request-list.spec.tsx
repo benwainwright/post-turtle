@@ -40,7 +40,11 @@ describe("<RequestList>", () => {
     ];
 
     const { lastFrame } = render(
-      <RequestList requests={requests} onTriggerEdit={jest.fn()} />
+      <RequestList
+        requests={requests}
+        onTriggerEdit={jest.fn()}
+        onShowTriggerDialog={jest.fn()}
+      />
     );
 
     const expected = `
@@ -85,7 +89,11 @@ describe("<RequestList>", () => {
 
     const onTriggerEdit = jest.fn();
     const { stdin } = render(
-      <RequestList requests={requests} onTriggerEdit={onTriggerEdit} />
+      <RequestList
+        requests={requests}
+        onTriggerEdit={onTriggerEdit}
+        onShowTriggerDialog={jest.fn()}
+      />
     );
 
     await delay(0);
