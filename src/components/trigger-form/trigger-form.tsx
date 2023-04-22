@@ -31,7 +31,7 @@ export const TriggerForm = ({ request, onClose }: TriggerFormProps) => {
         <Text bold color="blue">
           Fields
         </Text>
-        <Box>
+        <Box flexDirection="column">
           {fields.host.map((hostField, index) => (
             <Input
               key={`host-${hostField.name}`}
