@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HttpRequest } from "../../types/http-request.js";
 import fetch, { FetchError } from "node-fetch";
 import { normaliseRequest } from "../../core/normalise-request.js";
-import { parseRequestFields } from "../../components/request-line/parse-request-fields.js";
+import { parseRequestFields } from "./parse-request-fields.js";
 import { hydrateRequest } from "./hydrate-request.js";
 import { HttpRequestWithFields } from "../../types/http-request-with-field.js";
 
