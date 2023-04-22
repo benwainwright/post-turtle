@@ -27,11 +27,11 @@ const getHelperText = (editStatus: EditStatus) => {
     case EditStatus.NotEditing:
       return "Press enter to edit header values";
     case EditStatus.HeaderSelected:
-      return "Press 'e' to edit or 'a' to add a new header";
+      return "Press 'e' to edit or 'a' to add a new entry";
     case EditStatus.InKey:
-      return "Press 'enter' to switch to editing header value";
+      return "Editing key. Press 'enter' switch to editing value";
     case EditStatus.InValue:
-      return "Press 'enter' to save header";
+      return "Editing value. Press 'enter' to save header";
     case EditStatus.Editing:
       return "Use the arrow keys to select a header";
     case EditStatus.EditingEmpty:
