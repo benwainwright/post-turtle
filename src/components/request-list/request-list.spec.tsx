@@ -42,6 +42,7 @@ describe("<RequestList>", () => {
     const { lastFrame } = render(
       <RequestList
         requests={requests}
+        onTriggerDelete={jest.fn()}
         onTriggerEdit={jest.fn()}
         onShowTriggerDialog={jest.fn()}
       />
@@ -92,6 +93,7 @@ describe("<RequestList>", () => {
     const { stdin } = render(
       <RequestList
         requests={requests}
+        onTriggerDelete={jest.fn()}
         onTriggerEdit={onTriggerEdit}
         onShowTriggerDialog={jest.fn()}
       />
