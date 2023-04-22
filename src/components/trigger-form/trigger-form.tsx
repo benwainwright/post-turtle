@@ -28,19 +28,32 @@ export const TriggerForm = ({
     finalRequest,
     fieldsEdited,
     trigger,
+    hasFields,
   } = useRequest(request);
+  const { exit } = useApp();
+
+  useEffect(() => {
+    (async () => {
+      if (!hasFields && nonInteractive) {
+        await trigger();
+        exit();
+      }
+    })();
+  }, []);
 
   return (
     <Box borderStyle="single" flexDirection="column">
       <RequestDetail request={fieldsEdited ? finalRequest : request} />
-      <Box marginTop={1} flexDirection="column">
-        <Text bold color="blue">
-          Fields
-        </Text>
-        <Box flexDirection="column">
-          <RequestFields fields={fields} setFields={setFields} />
+      {hasFields && (
+        <Box marginTop={1} flexDirection="column">
+          <Text bold color="blue">
+            Fields
+          </Text>
+          <Box flexDirection="column">
+            <RequestFields fields={fields} setFields={setFields} />
+          </Box>
         </Box>
-      </Box>
+      )}
       <Box flexDirection="column">
         {loading && (
           <Box marginTop={1}>

@@ -15,10 +15,10 @@ const config: Config = {
   collectCoverageFrom: ["<rootDir>/src/**/*"],
   coverageThreshold: {
     global: {
-      statements: 64,
-      branches: 54,
-      functions: 55,
-      lines: 64,
+      statements: 66,
+      branches: 55,
+      functions: 57,
+      lines: 66,
     },
   },
   projects: [
