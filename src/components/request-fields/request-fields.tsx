@@ -9,7 +9,7 @@ interface RequestFieldsProps {
 
 export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
   return (
-    <Box marginY={1} marginLeft={5}>
+    <>
       {fields.host.map((hostField, index) => (
         <Input
           key={`host-${hostField.name}`}
@@ -39,7 +39,6 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
           key={`path-${pathField.name}`}
           label={pathField.name}
           value={pathField.data}
-          focus={true}
           onChange={(value) => {
             const newPath = Array.from(fields.path);
             newPath[index].data = value;
@@ -47,6 +46,23 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
           }}
         />
       ))}
-    </Box>
+      {Object.entries(fields.headers ?? {}).flatMap(([key, value]) => {
+        return value.map((headerField, index) => (
+          <Input
+            key={`body-${headerField.name}`}
+            label={headerField.name}
+            value={headerField.data}
+            onChange={(value) => {
+              const newHeaderFields = Array.from(fields.headers[key]);
+              newHeaderFields[index].data = value;
+              setFields({
+                ...fields,
+                headers: { ...fields.headers, [key]: newHeaderFields },
+              });
+            }}
+          />
+        ));
+      })}
+    </>
   );
 };

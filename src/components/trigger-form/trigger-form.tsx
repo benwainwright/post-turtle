@@ -7,6 +7,7 @@ import { FetchError } from "node-fetch";
 import { highlight } from "cli-highlight";
 import { RequestDetail } from "../request-detail/index.js";
 import { Button } from "../button/index.js";
+import { RequestFields } from "../request-fields/index.js";
 
 interface TriggerFormProps {
   request: HttpRequest;
@@ -32,73 +33,20 @@ export const TriggerForm = ({ request, onClose }: TriggerFormProps) => {
           Fields
         </Text>
         <Box flexDirection="column">
-          {fields.host.map((hostField, index) => (
-            <Input
-              key={`host-${hostField.name}`}
-              label={hostField.name}
-              value={hostField.data}
-              onChange={(value) => {
-                const newHost = Array.from(fields.host);
-                newHost[index].data = value;
-                setFields({ ...fields, host: newHost });
-              }}
-            />
-          ))}
-          {fields.body.map((bodyField, index) => (
-            <Input
-              key={`body-${bodyField.name}`}
-              label={bodyField.name}
-              value={bodyField.data}
-              onChange={(value) => {
-                const newBody = Array.from(fields.body);
-                newBody[index].data = value;
-                setFields({ ...fields, body: newBody });
-              }}
-            />
-          ))}
-          {fields.path.map((pathField, index) => (
-            <Input
-              key={`path-${pathField.name}`}
-              label={pathField.name}
-              value={pathField.data}
-              onChange={(value) => {
-                const newPath = Array.from(fields.path);
-                newPath[index].data = value;
-                setFields({ ...fields, path: newPath });
-              }}
-            />
-          ))}
-          {Object.entries(fields.headers ?? {}).flatMap(([key, value]) => {
-            return value.map((headerField, index) => (
-              <Input
-                key={`body-${headerField.name}`}
-                label={headerField.name}
-                value={headerField.data}
-                onChange={(value) => {
-                  const newHeaderFields = Array.from(fields.headers[key]);
-                  newHeaderFields[index].data = value;
-                  setFields({
-                    ...fields,
-                    headers: { ...fields.headers, [key]: newHeaderFields },
-                  });
-                }}
-              />
-            ));
-          })}
-
-          {loading && (
-            <Box marginTop={1}>
-              <Text>
-                <Text color="green">
-                  <Spinner type="dots" />
-                </Text>
-                {" Loading"}
-              </Text>
-            </Box>
-          )}
+          <RequestFields fields={fields} setFields={setFields} />
         </Box>
       </Box>
       <Box flexDirection="column">
+        {loading && (
+          <Box marginTop={1}>
+            <Text>
+              <Text color="green">
+                <Spinner type="dots" />
+              </Text>
+              {" Loading"}
+            </Text>
+          </Box>
+        )}
         {response && (
           <Box marginTop={1} flexDirection="column">
             <Text bold color="blue">
@@ -119,7 +67,7 @@ export const TriggerForm = ({ request, onClose }: TriggerFormProps) => {
         )}
       </Box>
 
-      <Box>
+      <Box marginTop={1}>
         <Button label="Trigger" onEnter={() => trigger()} />
         <Button label="Close" onEnter={onClose} />
       </Box>
