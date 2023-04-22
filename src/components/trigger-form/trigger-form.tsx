@@ -1,4 +1,4 @@
-import { Box, Text } from "ink";
+import { Box, Text, useApp } from "ink";
 import Spinner from "ink-spinner";
 import { HttpRequest } from "../../types/http-request.js";
 import { useRequest } from "../../hooks/use-request/index.js";
@@ -7,13 +7,19 @@ import { highlight } from "cli-highlight";
 import { RequestDetail } from "../request-detail/index.js";
 import { Button } from "../button/index.js";
 import { RequestFields } from "../request-fields/index.js";
+import { useEffect } from "react";
 
 interface TriggerFormProps {
   request: HttpRequest;
+  nonInteractive?: boolean;
   onClose: () => void;
 }
 
-export const TriggerForm = ({ request, onClose }: TriggerFormProps) => {
+export const TriggerForm = ({
+  request,
+  onClose,
+  nonInteractive,
+}: TriggerFormProps) => {
   const {
     fields,
     setFields,
@@ -66,10 +72,12 @@ export const TriggerForm = ({ request, onClose }: TriggerFormProps) => {
         )}
       </Box>
 
-      <Box marginTop={1}>
-        <Button label="Trigger" onEnter={() => trigger()} />
-        <Button label="Close" onEnter={onClose} />
-      </Box>
+      {!nonInteractive && (
+        <Box marginTop={1}>
+          <Button label="Trigger" onEnter={() => trigger()} />
+          <Button label="Close" onEnter={onClose} />
+        </Box>
+      )}
     </Box>
   );
 };
