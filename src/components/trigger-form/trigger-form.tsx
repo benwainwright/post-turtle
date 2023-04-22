@@ -61,7 +61,6 @@ export const TriggerForm = ({ request, onClose }: TriggerFormProps) => {
               key={`path-${pathField.name}`}
               label={pathField.name}
               value={pathField.data}
-              focus={true}
               onChange={(value) => {
                 const newPath = Array.from(fields.path);
                 newPath[index].data = value;
