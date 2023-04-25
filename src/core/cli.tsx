@@ -3,11 +3,11 @@
 import { EventEmitter } from "events";
 
 import { render } from "ink";
-import { App } from "./components/app/index.js";
+import { App } from "../components/app/index.js";
 import { program } from "commander";
-import { loadData } from "./core/load-data.js";
-import { RequestLine } from "./components/request-line/index.js";
-import { getPackageJson } from "./core/get-package-json.js";
+import { loadData } from "./load-data.js";
+import { RequestLine } from "../components/request-line/index.js";
+import { getPackageJson } from "./get-package-json.js";
 
 EventEmitter.defaultMaxListeners = 150;
 
