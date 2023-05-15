@@ -9,5 +9,5 @@ export const getSourceRoot = () => {
     return join(currentDirectory, "..");
   }
 
-  return join(currentDirectory, "..", "..");
+  return join(currentDirectory, "..");
 };
