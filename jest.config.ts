@@ -15,10 +15,10 @@ const config: Config = {
   collectCoverageFrom: ["<rootDir>/src/**/*"],
   coverageThreshold: {
     global: {
-      statements: 74,
-      branches: 72,
-      functions: 65,
-      lines: 74,
+      statements: 77,
+      branches: 75,
+      functions: 69,
+      lines: 77,
     },
   },
   projects: [
@@ -37,6 +37,7 @@ const config: Config = {
     {
       testEnvironment: "jsdom",
       displayName: "hooks",
+      setupFiles: [`<rootDir>/src/setup-jest.ts`],
       testMatch: ["<rootDir>/src/hooks/**/*.spec.ts"],
       ...mainConfig,
     },

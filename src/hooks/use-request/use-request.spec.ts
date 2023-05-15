@@ -3,8 +3,14 @@ import { HttpRequest } from "../../types/http-request.js";
 import { useRequest } from "./use-request.js";
 import nock from "nock";
 import { FetchError } from "node-fetch";
+import { HTTP_CONTENT_TYPES, HTTP_HEADERS } from "../../core/constants.js";
 
 const exampleServerHost = `http://example-server.com`;
+
+beforeEach(() => {
+  // eslint-disable-next-line import/no-named-as-default-member
+  nock.cleanAll();
+});
 
 describe("useRequest", () => {
   it("Starts off undefined", () => {
@@ -46,7 +52,7 @@ describe("useRequest", () => {
 
     nock(request.host, {
       reqheaders: {
-        "content-type": "application/json",
+        "content-type": HTTP_CONTENT_TYPES.applicationJson,
         bar: "baz",
       },
     })
@@ -80,12 +86,16 @@ describe("useRequest", () => {
           key: "bar",
           value: "baz",
         },
+        "bar-header": {
+          key: HTTP_HEADERS.contentType,
+          value: HTTP_CONTENT_TYPES.applicationJson,
+        },
       },
     };
     nock(request.host, {
       reqheaders: {
-        "content-type": "application/json",
         bar: "baz",
+        [HTTP_HEADERS.contentType]: HTTP_CONTENT_TYPES.applicationJson,
       },
     })
       .get(request.path)
@@ -103,11 +113,15 @@ describe("useRequest", () => {
       const { response, loading } = result.current;
       expect(response).toBeDefined();
       expect(loading).toBeFalsy();
-      if (response && "statusCode" in response) {
-        expect(response?.statusCode).toEqual(200);
-        expect(JSON.parse(response?.body)).toEqual({ foo: "bar" });
-      }
+      expect(
+        response && "statusCode" in response && response?.statusCode
+      ).toEqual(200);
+
+      expect(
+        response && "body" in response && JSON.parse(response?.body)
+      ).toEqual({
+        foo: "bar",
+      });
     });
   });
-
 });

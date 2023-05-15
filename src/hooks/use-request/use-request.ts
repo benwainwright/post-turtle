@@ -57,17 +57,20 @@ export const useRequest = (request: HttpRequest) => {
     try {
       setLoading(true);
 
+      const headers = Object.fromEntries(
+        Object.entries(finalRequest.headers ?? {}).map(([, value]) => [
+          value.key,
+          value.value,
+        ])
+      );
+
       const url = `${finalRequest.host}/${finalRequest.path}`;
       const fetchResponse = await fetch(url, {
         method: finalRequest.method,
         body: finalRequest.body,
-        headers: Object.fromEntries(
-          Object.entries(finalRequest.headers ?? {}).map(([, value]) => [
-            value.key,
-            value.value,
-          ])
-        ),
+        headers,
       });
+
       const body = formatResponse(await fetchResponse.text());
       setResponse({
         statusCode: fetchResponse.status,

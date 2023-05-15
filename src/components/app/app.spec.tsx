@@ -18,9 +18,9 @@ jest.unstable_mockModule("cli-highlight", () => ({
 let path: string | undefined;
 
 beforeEach(async () => {
+  cleanup();
   path = await mkdtemp(join(tmpdir(), "app-test"));
   process.cwd = () => path ?? "";
-  cleanup();
 });
 
 afterEach(async () => {
