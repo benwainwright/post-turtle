@@ -19,12 +19,14 @@ afterEach(async () => {
 });
 
 import { fileURLToPath } from "node:url";
+import { ENVIRONMENT_VARIABLES } from "./constants.js";
 const currentDirectory = dirname(fileURLToPath(import.meta.url));
 
 const rootDir = join(currentDirectory, "..", "..");
 
 describe("getVersionFromPackageJson", () => {
   it("Returns the version from the package.json file in the actual package regardless of what is in the current directory", async () => {
+    process.env[ENVIRONMENT_VARIABLES.IS_DEV] = "true";
     const data = JSON.parse(await readFile(`${rootDir}/package.json`, "utf-8"));
     await writeFile(
       `${path}/package.json`,

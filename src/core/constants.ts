@@ -7,3 +7,7 @@ export const HTTP_HEADERS = {
 export const HTTP_CONTENT_TYPES = {
   applicationJson: `application/json`,
 };
+
+export const ENVIRONMENT_VARIABLES = {
+  IS_DEV: `POST_TURTLE_IS_DEV`,
+};
