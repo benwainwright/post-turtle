@@ -196,6 +196,52 @@ describe("<EditRequestForm />", () => {
     });
   });
 
+  it("triggers onCancel when you tab to it", async () => {
+    const onCancel = jest.fn();
+    const request: HttpRequest = {
+      id: "foo",
+      slug: "foo",
+      title: "foo",
+      method: "GET",
+      host: exampleServerHost,
+      path: "/path",
+      headers: {
+        "foo-header": {
+          key: "bar",
+          value: "baz",
+        },
+      },
+    };
+    const { stdin } = render(
+      <EditRequestForm
+        initialValue={request}
+        onCancel={onCancel}
+        onSave={jest.fn()}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+
+    expect(onCancel).toHaveBeenCalled();
+  });
+
   it("Allows you to edit the path", async () => {
     const onSave = jest.fn();
     const request: HttpRequest = {
