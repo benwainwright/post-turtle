@@ -12,8 +12,17 @@ const NODE = `node`;
 
 const oldCwd = process.cwd;
 
+const getPackageJson =
+  jest.fn<
+    () => Promise<{ name: string; description: string; version: string }>
+  >();
+
 jest.unstable_mockModule("../components/app/app.js", () => ({
   App: mockApp,
+}));
+
+jest.unstable_mockModule("./get-package-json.js", () => ({
+  getPackageJson,
 }));
 
 jest.unstable_mockModule("../components/request-line/index.js", () => ({
@@ -27,10 +36,6 @@ let path: string | undefined;
 beforeEach(async () => {
   path = await mkdtemp(join(tmpdir(), "app-test"));
   process.cwd = () => path ?? "";
-  await writeFile(
-    `${path}/package.json`,
-    JSON.stringify({ name: "foo", description: "foo", version: "bar" })
-  );
 });
 
 afterEach(async () => {
@@ -65,6 +70,11 @@ describe("build CLI", () => {
 
     await writeFile(`${path}/requests.json`, JSON.stringify(requests));
 
+    getPackageJson.mockResolvedValue({
+      name: "foo",
+      description: "foo",
+      version: "foo",
+    });
     const program = await buildCli();
 
     program.parse([NODE, TEST_PROGRAM_NAME, "call", "foo"]);
@@ -81,10 +91,7 @@ describe("build CLI", () => {
     const description = `my-description`;
     const version = `1.2.3`;
     const name = `my-name`;
-    await writeFile(
-      `${path}/package.json`,
-      JSON.stringify({ name, description, version })
-    );
+    getPackageJson.mockResolvedValue({ name, description, version });
     const program = await buildCli();
 
     program.parse([NODE, TEST_PROGRAM_NAME]);
