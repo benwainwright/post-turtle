@@ -8,7 +8,7 @@ import { RequestLine } from "../components/request-line/index.js";
 import { getPackageJson } from "./get-package-json.js";
 
 export const buildCli = async () => {
-  EventEmitter.defaultMaxListeners = 150;
+  EventEmitter.defaultMaxListeners = 170;
 
   const packageJson = await getPackageJson();
 
