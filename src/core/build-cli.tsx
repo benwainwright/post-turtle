@@ -25,7 +25,7 @@ export const buildCli = async () => {
   const call = program
     .command("call")
     .description(
-      `Call saved HTTP request. To edit this list of commands interactively, run ${packageJson.name} without any arguments`
+      `Call HTTP request. To edit this list of commands interactively, run ${packageJson.name} without any arguments`
     );
 
   const data = await loadData();
