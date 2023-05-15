@@ -16,6 +16,12 @@ and the feature set is definitely a little thin on the ground at the moment
 
 ## Usage
 
-* Start interactive mode - `pt`
-* Call saved command - `pt call <slug>`
+- Start interactive mode - `pt`
+- Call saved command - `pt call <slug>`
 
+## Usage Examples
+
+### Create and trigger request interactively
+
+![Screen recording of a request being created and triggered
+interactively](./images/pt-interactive-create.gif)
