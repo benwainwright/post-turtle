@@ -68,7 +68,7 @@ export const App = ({ dataFile }: AppProps) => {
   if (editRequest) {
     return (
       <EditRequestForm
-        initalValue={editRequest}
+        initialValue={editRequest}
         onCancel={() => {
           setEditRequest(undefined);
         }}

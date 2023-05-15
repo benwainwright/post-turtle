@@ -10,6 +10,7 @@ describe("<RequestFields>", () => {
     const fields: HttpRequestWithFields = {
       body: [
         {
+          description: "",
           name: "bar",
           replace: "{{bar}}",
           data: "",
@@ -17,6 +18,7 @@ describe("<RequestFields>", () => {
       ],
       host: [
         {
+          description: "",
           name: "foo",
           replace: "{{ foo }}",
           data: "",
@@ -24,6 +26,7 @@ describe("<RequestFields>", () => {
       ],
       path: [
         {
+          description: "",
           name: "flux",
           replace: "{{flux}}",
           data: "",
@@ -32,6 +35,7 @@ describe("<RequestFields>", () => {
       headers: {
         "foo-header": [
           {
+            description: "",
             name: "foobar",
             // eslint-disable-next-line sonarjs/no-duplicate-string
             replace: "{{ foobar }}",
@@ -71,6 +75,7 @@ describe("<RequestFields>", () => {
           name: "foo",
           replace: "{{ foo }}",
           data: "",
+          description: "",
         },
       ],
       path: [],
@@ -80,6 +85,7 @@ describe("<RequestFields>", () => {
             name: "foobar",
             replace: "{{ foobar }}",
             data: "",
+            description: "",
           },
         ],
       },
@@ -105,6 +111,7 @@ describe("<RequestFields>", () => {
         {
           name: "foo",
           replace: "{{ foo }}",
+          description: "",
           data: "",
         },
       ],
@@ -114,6 +121,7 @@ describe("<RequestFields>", () => {
           {
             name: "foobar",
             replace: "{{ foobar }}",
+            description: "",
             data: "foo",
           },
         ],
@@ -130,6 +138,7 @@ describe("<RequestFields>", () => {
         {
           name: "foo",
           replace: "{{ foo }}",
+          description: "",
           data: "",
         },
       ],
@@ -139,6 +148,7 @@ describe("<RequestFields>", () => {
           {
             name: "foobar",
             replace: "{{ foobar }}",
+            description: "",
             data: "",
           },
         ],
@@ -163,6 +173,7 @@ describe("<RequestFields>", () => {
         {
           name: "foo",
           replace: "{{ foo }}",
+          description: "",
           data: "foo",
         },
       ],
@@ -172,6 +183,7 @@ describe("<RequestFields>", () => {
           {
             name: "foobar",
             replace: "{{ foobar }}",
+            description: "",
             data: "",
           },
         ],
@@ -189,6 +201,7 @@ describe("<RequestFields>", () => {
         {
           name: "foo",
           replace: "{{ foo }}",
+          description: "",
           data: "",
         },
       ],
@@ -197,6 +210,7 @@ describe("<RequestFields>", () => {
           {
             name: "foobar",
             replace: "{{ foobar }}",
+            description: "",
             data: "",
           },
         ],
@@ -222,6 +236,7 @@ describe("<RequestFields>", () => {
         {
           name: "foo",
           replace: "{{ foo }}",
+          description: "",
           data: "foo",
         },
       ],
@@ -230,6 +245,7 @@ describe("<RequestFields>", () => {
           {
             name: "foobar",
             replace: "{{ foobar }}",
+            description: "",
             data: "",
           },
         ],
@@ -245,6 +261,7 @@ describe("<RequestFields>", () => {
         {
           name: "foo",
           replace: "{{ foo }}",
+          description: "",
           data: "",
         },
       ],
@@ -255,6 +272,7 @@ describe("<RequestFields>", () => {
           {
             name: "foobar",
             replace: "{{ foobar }}",
+            description: "",
             data: "",
           },
         ],
@@ -278,6 +296,7 @@ describe("<RequestFields>", () => {
         {
           name: "foo",
           replace: "{{ foo }}",
+          description: "",
           data: "foo",
         },
       ],
@@ -288,6 +307,7 @@ describe("<RequestFields>", () => {
           {
             name: "foobar",
             replace: "{{ foobar }}",
+            description: "",
             data: "",
           },
         ],
