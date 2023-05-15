@@ -1,4 +1,10 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["./src/**/*.spec.tsx", "./src/**/*.spec.ts", "*.config.js"]
+  "exclude": [
+    "./src/**/*.spec.tsx",
+    "./src/**/*.spec.ts",
+    "*.config.ts",
+    "./src/run.ts",
+    "./src/setup-jest.ts"
+  ]
 }
