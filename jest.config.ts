@@ -22,7 +22,7 @@ const config: Config = {
     global: {
       statements: 81,
       branches: 75,
-      functions: 71,
+      functions: 72,
       lines: 81,
     },
   },
