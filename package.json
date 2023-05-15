@@ -9,6 +9,10 @@
     "email": "bwainwright28@gmail.com",
     "url": "https://benwainwright.me"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benwainwright/post-turtle.git"
+  },
   "bin": {
     "pt": "./bin/run.js"
   },
