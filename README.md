@@ -1,4 +1,6 @@
 # post-turtle 🐢
+![build status](https://img.shields.io/github/actions/workflow/status/benwainwright/post-turtle/main.yaml)
+![License](https://img.shields.io/npm/l/post-turtle)
 
 `post-turtle` is a simple shell based [Postman](https://www.postman.com/) alternative written in TypeScript. It is designed to help developers make quick API requests on the fly without having to use something as heavy as Postman
 
