@@ -145,7 +145,7 @@ describe("<KeyValueAddField />", () => {
     });
   });
 
-  it("Calls onChange with an empty header when you press 'a'", async () => {
+  it("Calls onChange with an empty header when you press 'a' and there is no data", async () => {
     const onChange = jest.fn();
 
     jest.mocked(v4).mockReturnValue("mock-id");
@@ -164,6 +164,44 @@ describe("<KeyValueAddField />", () => {
 
     expect(onChange).toHaveBeenCalledWith({
       "mock-id": {
+        key: "",
+        value: "",
+      },
+    });
+  });
+
+  it("Calls onChange with an empty header when you press 'a', there is data, and a header is selected", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("another-mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    await delay(20);
+    stdin.write(arrowDown);
+    stdin.write(`a`);
+    await delay(20);
+
+    expect(onChange).toHaveBeenCalledWith({
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+      [`another-mock-id`]: {
         key: "",
         value: "",
       },
