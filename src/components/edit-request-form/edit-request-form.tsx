@@ -9,7 +9,7 @@ import { HttpMethod } from "../../types/http-method.js";
 import { KeyValueAddField } from "../key-value-add-field/index.js";
 
 interface EditRequestFormProps {
-  initalValue: HttpRequest;
+  initialValue: HttpRequest;
   onSave: (request: HttpRequest) => void;
   onCancel: () => void;
 }
@@ -17,7 +17,7 @@ interface EditRequestFormProps {
 export const EditRequestForm = ({
   onSave,
   onCancel,
-  initalValue,
+  initialValue: initalValue,
 }: EditRequestFormProps) => {
   const [request, setRequest] = useState(initalValue);
 

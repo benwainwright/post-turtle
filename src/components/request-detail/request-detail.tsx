@@ -6,7 +6,10 @@ interface RequestDetailProps {
 }
 
 export const RequestDetail = ({ request }: RequestDetailProps) => {
-  const pathString = request.path ? `/${request.path}` : ``;
+  const pathString =
+    !request.path || request.path.startsWith("/")
+      ? request.path
+      : `/${request.path}`;
   return (
     <Box flexDirection="column">
       <Box gap={2}>

@@ -2,6 +2,7 @@ export interface Field {
   name: string;
   replace: string;
   data: string;
+  description: string;
 }
 
 export interface HttpRequestWithFields {

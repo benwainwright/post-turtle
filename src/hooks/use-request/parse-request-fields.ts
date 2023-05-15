@@ -4,18 +4,19 @@ import {
 } from "../../types/http-request-with-field.js";
 import { HttpRequest } from "../../types/http-request.js";
 
-type RegexMatches = string[] & { index: number };
-
 const getFieldsFromString = (text: string) => {
-  const regex = /{{\s*(\w|\w\w|\w[\w\s\w]+\w)\s*}}/gm;
+  const regex =
+    /{{\s*(?<name>\w|\w\w|\w[\w\s\w]+\w)\s*(?::\s*(?<description>\w|\w\w|[\w\s\w]+\w))?\s*}}/gm;
+
   const fields: Field[] = [];
-  let match: RegexMatches | null = null;
+  let match: RegExpExecArray | null = null;
   do {
     match = regex.exec(text);
     if (match) {
       fields.push({
         replace: match[0],
-        name: match[1],
+        name: match.groups?.name ?? "",
+        description: match.groups?.description ?? "",
         data: "",
       });
     }

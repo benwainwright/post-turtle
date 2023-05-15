@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { HttpRequest } from "../types/http-request.js";
 
 const mockApp = jest.fn(() => <></>);
-const mockRequestLine = jest.fn(() => <></>);
+const mockTriggerForm = jest.fn(() => <></>);
 
 const TEST_PROGRAM_NAME = `test-program-name`;
 const NODE = `node`;
@@ -17,6 +17,10 @@ const getPackageJson =
     () => Promise<{ name: string; description: string; version: string }>
   >();
 
+jest.unstable_mockModule("cli-highlight", () => ({
+  highlight: (thing: unknown) => thing,
+}));
+
 jest.unstable_mockModule("../components/app/app.js", () => ({
   App: mockApp,
 }));
@@ -25,8 +29,8 @@ jest.unstable_mockModule("./get-package-json.js", () => ({
   getPackageJson,
 }));
 
-jest.unstable_mockModule("../components/request-line/index.js", () => ({
-  RequestLine: mockRequestLine,
+jest.unstable_mockModule("../components/trigger-form/index.js", () => ({
+  TriggerForm: mockTriggerForm,
 }));
 
 const { buildCli } = await import("./build-cli.js");
@@ -45,11 +49,11 @@ afterEach(async () => {
   process.cwd = oldCwd;
 
   mockApp.mockClear();
-  mockRequestLine.mockClear();
+  mockTriggerForm.mockClear();
 });
 
 describe("build CLI", () => {
-  it("calls requestline for the request passed in at the command line", async () => {
+  it("calls triggerForm for the request passed in at the command line", async () => {
     const exampleServerHost = `http://example-server.com`;
     const requests: HttpRequest[] = [
       {
@@ -58,7 +62,7 @@ describe("build CLI", () => {
         title: "foo",
         method: "GET",
         host: exampleServerHost,
-        path: "/path",
+        path: "path",
         headers: {
           "foo-header": {
             key: "bar",
@@ -78,11 +82,11 @@ describe("build CLI", () => {
     const program = await buildCli();
 
     program.parse([NODE, TEST_PROGRAM_NAME, "call", "foo"]);
-    expect(mockRequestLine).toHaveBeenCalledWith(
-      {
+    expect(mockTriggerForm).toHaveBeenCalledWith(
+      expect.objectContaining({
         request: requests[0],
-        immediateTrigger: true,
-      },
+        nonInteractive: true,
+      }),
       expect.anything()
     );
   });

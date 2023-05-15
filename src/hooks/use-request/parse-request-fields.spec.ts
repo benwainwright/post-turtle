@@ -10,7 +10,7 @@ describe("parse request fields", () => {
       title: "foo",
       method: "GET",
       host: "",
-      path: "/{{ bim }}/id/{{ bash }}",
+      path: "/{{ bim : some description }}/id/{{ bash }}",
       headers: {
         authorization: {
           key: "thing",
@@ -31,12 +31,14 @@ describe("parse request fields", () => {
       path: [
         {
           name: "bim",
-          replace: "{{ bim }}",
+          description: "some description",
+          replace: "{{ bim : some description }}",
           data: "",
         },
         {
           name: "bash",
           replace: "{{ bash }}",
+          description: "",
           data: "",
         },
       ],
@@ -46,6 +48,7 @@ describe("parse request fields", () => {
           {
             name: "Foo Bar",
             replace: "{{ Foo Bar }}",
+            description: "",
             data: "",
           },
         ],
