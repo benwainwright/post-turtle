@@ -4199,6 +4199,11 @@ jest-message-util@^29.5.0:
     slash "^3.0.0"
     stack-utils "^2.0.3"
 
+jest-mock-console@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/jest-mock-console/-/jest-mock-console-2.0.0.tgz#65a7f7e59f606b588359801dc1a732bd270f6108"
+  integrity sha512-7zrKtXVut+6doalosFxw/2O9spLepQJ9VukODtyLIub2fFkWKe1TyQrxr/GyQogTQcdkHfhvFJdx1OEzLqf/mw==
+
 jest-mock-extended@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/jest-mock-extended/-/jest-mock-extended-3.0.4.tgz#12a5f993d27aa46232012c439a9b7c54f3b0a1fd"

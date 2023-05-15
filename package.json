@@ -24,6 +24,7 @@
     "ink-table": "^3.0.0",
     "ink-testing-library": "3.0.0",
     "ink-text-input": "5.0.1",
+    "jest-mock-console": "^2.0.0",
     "lodash": "4.17.21",
     "nock": "^13.3.0",
     "node-fetch": "3.3.1",
@@ -80,7 +81,7 @@
     "build": "tsc --project tsconfig.dist.json",
     "check-types": "tsc --noEmit",
     "start-built": "./bin/run.js",
-    "start": "ts-node --esm ./src/core/cli.tsx",
+    "start": "ts-node --esm ./src/run.ts",
     "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules $(yarn bin jest)"
   },
   "release": {
