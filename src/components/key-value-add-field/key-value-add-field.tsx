@@ -51,12 +51,12 @@ export const KeyValueAddField = ({
     EditStatus.NotEditing
   );
 
-  useInput(() => {
+  useEffect(() => {
     if (!isFocused && editMode) {
       setEditing(undefined);
       setEditMode(false);
     }
-  });
+  }, [isFocused]);
 
   useInput((char, key) => {
     if (isFocused) {

@@ -6,12 +6,41 @@ import { parseRequestFields } from "./parse-request-fields.js";
 import { hydrateRequest } from "./hydrate-request.js";
 import { HttpRequestWithFields } from "../../types/http-request-with-field.js";
 
+type ContentType = "html" | "json" | "text";
+
+const getContentType = (header: Headers): ContentType => {
+  const contentTypeHeaderValue = header.get("content-type");
+  if (contentTypeHeaderValue?.includes("application/json")) {
+    return "json";
+  }
+
+  if (contentTypeHeaderValue?.includes("text/html")) {
+    return "html";
+  }
+
+  return "text";
+};
+
 interface SimpleResponse {
   statusCode: number;
   body: string;
+  headers: Headers;
+  contentType: ContentType;
 }
 
-const formatJson = (text: string) => JSON.stringify(JSON.parse(text), null, 2);
+const formatResponse = (text: string) => {
+  const trimmedLines = text
+    .split("\n")
+    .map((line) => line.replace(/\s+$/g, ""))
+    .map((line) => line.replace(/\t/g, "  "))
+    .join("\n");
+
+  try {
+    return JSON.stringify(JSON.parse(trimmedLines), null, 2);
+  } catch {
+    return trimmedLines;
+  }
+};
 
 export const useRequest = (request: HttpRequest) => {
   const [response, setResponse] = useState<
@@ -39,8 +68,13 @@ export const useRequest = (request: HttpRequest) => {
           ])
         ),
       });
-      const body = formatJson(await fetchResponse.text());
-      setResponse({ statusCode: fetchResponse.status, body });
+      const body = formatResponse(await fetchResponse.text());
+      setResponse({
+        statusCode: fetchResponse.status,
+        body,
+        contentType: getContentType(fetchResponse.headers),
+        headers: fetchResponse.headers,
+      });
       setLoading(false);
     } catch (error) {
       if (error instanceof FetchError) {

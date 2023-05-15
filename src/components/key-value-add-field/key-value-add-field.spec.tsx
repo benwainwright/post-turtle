@@ -3,6 +3,7 @@ import { render, cleanup } from "ink-testing-library";
 import { jest } from "@jest/globals";
 import delay from "delay";
 import stripAnsi from "strip-ansi";
+import { Text, useFocus } from "ink";
 
 const arrowUp = "\u001B[A";
 const arrowDown = "\u001B[B";
@@ -20,7 +21,68 @@ beforeEach(() => {
   cleanup();
 });
 
+const DummyInput = () => {
+  useFocus();
+  return <Text>Text</Text>;
+};
+
 describe("<KeyValueAddField />", () => {
+  it("Allows you to edit the value when you press enter", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(`\r`);
+    await delay(20);
+    stdin.write(`f`);
+
+    expect(onChange).toHaveBeenCalledWith({
+      [`test-id`]: { key: "header-name", value: "header-valuef" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    });
+  });
+
+  it("Resets the component back to its original helper text when you tab away", async () => {
+    const { lastFrame, stdin } = render(
+      <>
+        <KeyValueAddField label="Headers" onChange={jest.fn()} />
+        <DummyInput />
+      </>
+    );
+
+    await delay(0);
+    stdin.write("\t");
+    await delay(0);
+    stdin.write("\r");
+    await delay(0);
+    stdin.write("\t");
+    await delay(20);
+
+    expect(stripAnsi(lastFrame() ?? "")).toContain(
+      "Press enter to edit header values"
+    );
+  });
+
   it("Displays the correct helper text when first rendered", () => {
     const { lastFrame } = render(
       <KeyValueAddField label="Headers" onChange={jest.fn()} />
@@ -33,7 +95,9 @@ describe("<KeyValueAddField />", () => {
 
   it("Displays the correct helper text when you start editing and there is no values", async () => {
     const { lastFrame, stdin } = render(
-      <KeyValueAddField label="Headers" onChange={jest.fn()} />
+      <>
+        <KeyValueAddField label="Headers" onChange={jest.fn()} />
+      </>
     );
 
     await delay(0);
@@ -45,6 +109,40 @@ describe("<KeyValueAddField />", () => {
     expect(stripAnsi(lastFrame() ?? "")).toContain(
       "Press 'a' to create a new header"
     );
+  });
+
+  it("Allows you to edit existing headers when you press 'e'", async () => {
+    const onChange = jest.fn();
+
+    jest.mocked(v4).mockReturnValue("mock-id");
+
+    const values = {
+      [`test-id`]: { key: "header-name", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    };
+
+    const { stdin } = render(
+      <KeyValueAddField
+        label="Headers"
+        onChange={onChange}
+        fieldValue={values}
+      />
+    );
+
+    await delay(20);
+    stdin.write("\t");
+    await delay(20);
+    stdin.write("\r");
+    await delay(20);
+    stdin.write(arrowDown);
+    await delay(20);
+    stdin.write(`e`);
+    await delay(20);
+
+    expect(onChange).toHaveBeenCalledWith({
+      [`test-id`]: { key: "header-namee", value: "header-value" },
+      [`test-id-2`]: { key: "another-header", value: "its-value" },
+    });
   });
 
   it("Calls onChange with an empty header when you press 'a'", async () => {

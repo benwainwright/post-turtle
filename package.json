@@ -80,7 +80,7 @@
     "build": "tsc --project tsconfig.dist.json",
     "check-types": "tsc --noEmit",
     "start-built": "./bin/run.js",
-    "start": "ts-node --esm ./src/cli.tsx",
+    "start": "ts-node --esm ./src/core/cli.tsx",
     "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules $(yarn bin jest)"
   },
   "release": {

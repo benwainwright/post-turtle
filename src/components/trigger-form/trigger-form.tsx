@@ -77,7 +77,11 @@ export const TriggerForm = ({
                   <Text>{response.statusCode}</Text>
                 </Box>
                 <Box flexDirection="column">
-                  <Text>{highlight(response.body, { language: "json" })}</Text>
+                  <Text>
+                    {highlight(response.body, {
+                      language: response.contentType,
+                    })}
+                  </Text>
                 </Box>
               </>
             )}
