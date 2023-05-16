@@ -27,6 +27,10 @@ jest.unstable_mockModule("../trigger-form/index.js", () => ({
   TriggerForm: mockTriggerForm,
 }));
 
+jest.unstable_mockModule("../../core/default-data-file-path.js", () => ({
+  defaultDatafile: () => `${process.cwd()}/requests.json`,
+}));
+
 let path: string | undefined;
 
 beforeEach(async () => {

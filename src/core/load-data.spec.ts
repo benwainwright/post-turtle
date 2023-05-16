@@ -1,8 +1,8 @@
 import { mkdtemp, rmdir, writeFile } from "fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { jest } from "@jest/globals";
 import { HttpRequest } from "../types/http-request.js";
-import { loadData } from "./load-data.js";
 
 let path: string | undefined;
 
@@ -12,6 +12,12 @@ beforeEach(async () => {
   path = await mkdtemp(join(tmpdir(), "use-storage-test-"));
   process.cwd = () => path ?? "";
 });
+
+jest.unstable_mockModule("./default-data-file-path.js", () => ({
+  defaultDatafile: () => `${process.cwd()}/requests.json`,
+}));
+
+const { loadData } = await import("./load-data.js");
 
 const exampleServerHost = `http://example-server.com`;
 

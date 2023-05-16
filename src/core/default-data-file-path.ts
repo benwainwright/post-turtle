@@ -1,3 +1,6 @@
-import path from "node:path";
+import { join } from "node:path";
+import { homedir } from "node:os";
 
-export const defaultDatafile = () => path.join(process.cwd(), "requests.json");
+const DEFAULT_FILENAME = ".post-turtle-requests";
+
+export const defaultDatafile = () => join(homedir(), DEFAULT_FILENAME);

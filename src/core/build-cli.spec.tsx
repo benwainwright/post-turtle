@@ -33,6 +33,10 @@ jest.unstable_mockModule("../components/trigger-form/index.js", () => ({
   TriggerForm: mockTriggerForm,
 }));
 
+jest.unstable_mockModule("./default-data-file-path.js", () => ({
+  defaultDatafile: () => `${process.cwd()}/requests.json`,
+}));
+
 const { buildCli } = await import("./build-cli.js");
 
 let path: string | undefined;
