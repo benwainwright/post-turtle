@@ -2,7 +2,7 @@ import { render, cleanup } from "ink-testing-library";
 import { jest } from "@jest/globals";
 import delay from "delay";
 import stripAnsi from "strip-ansi";
-import { mkdtemp, rmdir, writeFile } from "fs/promises";
+import { mkdtemp, readFile, rmdir, writeFile } from "fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { HttpRequest } from "../../types/http-request.js";
@@ -124,6 +124,57 @@ describe("The app component", () => {
       }),
       expect.anything()
     );
+  });
+
+  it("deletes the correct entry when you follow the delete flow", async () => {
+    const data: HttpRequest[] = [
+      {
+        id: "c2550baa-6bc5-4d5e-9542-71095c6d5a62",
+        title: "My Homepage Public Posts",
+        slug: "homepage-public-posts",
+        method: "GET",
+        host: "https://api.benwainwright.me",
+        path: "page",
+      },
+      {
+        id: "59db1eb3-1dec-4e0a-b696-2755633a67ce",
+        title: "My Homepage Comments",
+        slug: "comments",
+        method: "GET",
+        host: "https://api.benwainwright.me",
+        path: "comments/{{ slug: Slug of the blog post you want to get comments for }}",
+      },
+      {
+        id: "8e5c4bb1-9929-4972-8175-c39c5c0f4746",
+        title: "testing",
+        slug: "foo",
+        method: "GET",
+        host: "https://www.google.com",
+        path: "bar",
+      },
+    ];
+
+    await writeFile(`${path}/requests.json`, JSON.stringify(data));
+
+    const { stdin } = render(<App />);
+
+    await delay(10);
+
+    stdin.write("\t");
+    await delay(10);
+    stdin.write("\t");
+    await delay(10);
+    stdin.write("d");
+    await delay(10);
+    stdin.write("\t");
+    await delay(10);
+    stdin.write("\r");
+    await delay(10);
+
+    const expected = [data[0], data[2]];
+
+    const result = JSON.parse(await readFile(`${path}/requests.json`, `utf8`));
+    expect(result).toEqual(expected);
   });
 
   it("Displays a list of requests if there is some data", async () => {

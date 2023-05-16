@@ -54,10 +54,10 @@ export const App = ({ dataFile }: AppProps) => {
         onCancel={() => setDeleteRequest(undefined)}
         onOk={() => {
           const index = requests.findIndex(
-            (needle) => needle === deleteRequest
+            (needle) => needle.id === deleteRequest.id
           );
           const newRequests = Array.from(requests);
-          newRequests.splice(index);
+          newRequests.splice(index, 1);
           update(newRequests);
           setDeleteRequest(undefined);
         }}
