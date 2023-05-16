@@ -6,6 +6,7 @@ import { mkdtemp, rmdir, writeFile } from "fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { HttpRequest } from "../../types/http-request.js";
+import { Text } from "ink";
 
 const oldCwd = process.cwd;
 
@@ -13,6 +14,17 @@ const exampleServerHost = `http://example-server.com`;
 
 jest.unstable_mockModule("cli-highlight", () => ({
   highlight: (thing: unknown) => thing,
+}));
+
+const mockEditRequestForm = jest.fn(() => <Text>Edit</Text>);
+const mockTriggerForm = jest.fn(() => <Text>Trigger</Text>);
+
+jest.unstable_mockModule("../edit-request-form/index.js", () => ({
+  EditRequestForm: mockEditRequestForm,
+}));
+
+jest.unstable_mockModule("../trigger-form/index.js", () => ({
+  TriggerForm: mockTriggerForm,
 }));
 
 let path: string | undefined;
@@ -46,6 +58,67 @@ describe("The app component", () => {
 
     expect(stripAnsi(lastFrame() ?? "").trim()).toEqual(
       "You've not created any requests. Press 'a' to get started!".trim()
+    );
+  });
+
+  it("Displays the edit form if you press 'a'", async () => {
+    const { lastFrame, stdin } = render(<App />);
+
+    await delay(10);
+
+    stdin.write("a");
+
+    expect(lastFrame()).toEqual("Edit");
+  });
+
+  it("Calls the trigger form with the right request if you press t", async () => {
+    const requests: HttpRequest[] = [
+      {
+        id: "foo",
+        slug: "foo",
+        title: "foo",
+        method: "GET",
+        host: exampleServerHost,
+        path: "/path",
+        headers: {
+          "foo-header": {
+            key: "bar",
+            value: "baz",
+          },
+        },
+      },
+      {
+        id: "foo-bar",
+        slug: "foo-bar",
+        title: "Foobar",
+        method: "POST",
+        host: exampleServerHost,
+        path: "/another/path",
+      },
+    ];
+
+    await writeFile(`${path}/requests.json`, JSON.stringify(requests));
+    const { lastFrame, stdin } = render(<App />);
+    await delay(10);
+
+    stdin.write("\t");
+    await delay(10);
+    stdin.write("\t");
+    await delay(10);
+    stdin.write("t");
+    expect(lastFrame()).toEqual("Trigger");
+    expect(mockTriggerForm).toHaveBeenCalledWith(
+      expect.objectContaining({
+        request: {
+          id: "foo-bar",
+          slug: "foo-bar",
+          title: "Foobar",
+          method: "POST",
+          host: exampleServerHost,
+          path: "/another/path",
+        },
+      }),
+      expect.anything()
     );
   });
 

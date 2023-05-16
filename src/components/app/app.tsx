@@ -2,7 +2,7 @@ import { useInput, Text, Box } from "ink";
 import { v4 } from "uuid";
 import { useState } from "react";
 import { HttpRequest } from "../../types/http-request.js";
-import { EditRequestForm } from "../edit-request-form/edit-request-form.js";
+import { EditRequestForm } from "../edit-request-form/index.js";
 import { DEFAULT_REQUEST } from "../../core/default-request.js";
 import { RequestList } from "../request-list/request-list.js";
 import { useStorage } from "../../hooks/use-storage/use-storage.js";

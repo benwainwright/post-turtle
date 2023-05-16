@@ -94,13 +94,15 @@ describe("<Select />", () => {
       />
     );
 
-    await delay(0);
+    await delay(20);
     stdin.write("\t");
-    await delay(0);
+    await delay(20);
     stdin.write(`${arrowRight}`);
-    await delay(0);
+    await delay(20);
     stdin.write(`${arrowRight}`);
-    await delay(0);
+    await delay(20);
+    stdin.write(`${arrowRight}`);
+    await delay(20);
     expect(onChange).toHaveBeenNthCalledWith(2, "Bar");
   });
 });
