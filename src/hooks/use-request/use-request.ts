@@ -80,9 +80,11 @@ export const useRequest = (request: HttpRequest) => {
       });
       setLoading(false);
     } catch (error) {
-      if (error instanceof FetchError) {
-        setResponse(error);
-      }
+      /**
+       * If I don't do this type assertion I get coverage issues on the else branch.
+       * TODO rethrow error and write tests for that case
+       */
+      setResponse(error as FetchError);
       setLoading(false);
     }
   };

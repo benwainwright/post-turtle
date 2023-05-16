@@ -15,7 +15,9 @@ const getFieldsFromString = (text: string) => {
     if (match) {
       fields.push({
         replace: match[0],
-        name: match.groups?.name ?? "",
+        // Groups will never be null if there is a match based on the above regex
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        name: match.groups!.name,
         description: match.groups?.description ?? "",
         data: "",
       });

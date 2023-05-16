@@ -214,6 +214,114 @@ describe("useRequest", () => {
     });
   });
 
+  it("Setfields allow you to edit the parsed fields", async () => {
+    const request: HttpRequest = {
+      id: "foo",
+      slug: "foo",
+      title: "foo",
+      method: "GET",
+      host: exampleServerHost,
+      path: "/path/{{ param }}",
+      headers: {
+        "foo-header": {
+          key: "bar",
+          value: "baz",
+        },
+        "bar-header": {
+          key: HTTP_HEADERS.contentType,
+          value: HTTP_CONTENT_TYPES.applicationJson,
+        },
+      },
+    };
+
+    const fields = {
+      body: [],
+      host: [],
+      path: [
+        {
+          data: "",
+          description: "",
+          name: "param",
+          replace: "{{ param }}",
+        },
+      ],
+      headers: {
+        "foo-header": [],
+        "bar-header": [],
+      },
+    };
+
+    const { result } = renderHook(() => useRequest(request));
+
+    expect(result.current.fields).toStrictEqual(fields);
+
+    fields.path[0].data = "foo";
+    act(() => {
+      result.current.setFields(fields);
+    });
+    await waitFor(() => {
+      expect(result.current.fields.path[0].data).toEqual("foo");
+    });
+  });
+
+  it("SetFields marks fields as edited", async () => {
+    const request: HttpRequest = {
+      id: "foo",
+      slug: "foo",
+      title: "foo",
+      method: "GET",
+      host: exampleServerHost,
+      path: "/path/{{ param }}",
+      headers: {
+        "foo-header": {
+          key: "bar",
+          value: "baz",
+        },
+        "bar-header": {
+          key: HTTP_HEADERS.contentType,
+          value: HTTP_CONTENT_TYPES.applicationJson,
+        },
+      },
+    };
+
+    const fields = {
+      body: [],
+      host: [],
+      path: [
+        {
+          data: "",
+          description: "",
+          name: "param",
+          replace: "{{ param }}",
+        },
+      ],
+      headers: {
+        "foo-header": [],
+        "bar-header": [],
+      },
+    };
+
+    const { result } = renderHook(() => useRequest(request));
+
+    expect(result.current.fields).toStrictEqual(fields);
+
+    fields.path[0].data = "foo";
+    act(() => {
+      result.current.setFields(fields);
+    });
+    await waitFor(() => {
+      expect(result.current.fieldsEdited).toBeTruthy();
+    });
+
+    act(() => {
+      result.current.setFields(fields);
+    });
+
+    await waitFor(() => {
+      expect(result.current.fieldsEdited).toBeTruthy();
+    });
+  });
+
   it("Correctly returns raw HTML with the right content type", async () => {
     const request: HttpRequest = {
       id: "foo",
