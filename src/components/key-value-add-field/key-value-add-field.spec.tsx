@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { render, cleanup } from "ink-testing-library";
 import { jest } from "@jest/globals";
 import delay from "delay";

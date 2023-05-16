@@ -58,6 +58,7 @@ module.exports = {
       files: ["**/*.spec.ts", "**/*.spec.tsx"],
       extends: ["plugin:jest/recommended"],
       rules: {
+        "sonarjs/no-duplicate-string": "off",
         "jest/no-conditional-expect": "off",
       },
       env: {

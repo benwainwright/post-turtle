@@ -37,7 +37,6 @@ describe("<RequestFields>", () => {
           {
             description: "",
             name: "foobar",
-            // eslint-disable-next-line sonarjs/no-duplicate-string
             replace: "{{ foobar }}",
             data: "",
           },
