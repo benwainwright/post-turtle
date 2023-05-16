@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 
 import { render } from "ink";
 import { App } from "../components/app/index.js";
-import { program } from "@commander-js/extra-typings";
+import { program } from "commander";
 import { loadData } from "./load-data.js";
 import { getPackageJson } from "./get-package-json.js";
 import { parseRequestFields } from "../hooks/use-request/parse-request-fields.js";
@@ -38,9 +38,7 @@ export const buildCli = async () => {
   const data = await loadData();
   data.forEach((request) => {
     const fields = parseRequestFields(request);
-    const command = call
-      .command<string>(request.slug)
-      .description(request.title);
+    const command = call.command(request.slug).description(request.title);
 
     const addFieldsOption = (field: Field) => {
       command.requiredOption(

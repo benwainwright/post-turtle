@@ -20,7 +20,6 @@
     "dist"
   ],
   "dependencies": {
-    "@commander-js/extra-typings": "^10.0.3",
     "cli-highlight": "^2.1.11",
     "commander": "10.0.1",
     "ink": "4.1.0",
