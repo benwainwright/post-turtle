@@ -45,15 +45,15 @@ describe("<KeyValueAddField />", () => {
       />
     );
 
-    await delay(20);
+    await delay(50);
     stdin.write("\t");
-    await delay(20);
+    await delay(50);
     stdin.write("\r");
-    await delay(20);
+    await delay(50);
     stdin.write(arrowDown);
-    await delay(20);
+    await delay(50);
     stdin.write(`\r`);
-    await delay(20);
+    await delay(50);
     stdin.write(`f`);
 
     expect(onChange).toHaveBeenCalledWith({

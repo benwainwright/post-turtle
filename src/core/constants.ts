@@ -5,6 +5,8 @@ export const HTTP_HEADERS = {
 };
 
 export const HTTP_CONTENT_TYPES = {
+  textHtml: `text/html`,
+  textPlain: `text/plain`,
   applicationJson: `application/json`,
 };
 
