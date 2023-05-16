@@ -109,4 +109,98 @@ describe("<RequestList>", () => {
 
     expect(onTriggerEdit).toHaveBeenCalledWith(requests[1]);
   });
+
+  it("Triggers onTriggerDelete with the correct request when you press 'd'", async () => {
+    const requests: HttpRequest[] = [
+      {
+        id: "foo",
+        slug: "foo",
+        title: "foo",
+        method: "GET",
+        host: exampleServerHost,
+        path: "/path",
+        headers: {
+          "foo-header": {
+            key: "bar",
+            value: "baz",
+          },
+        },
+      },
+      {
+        id: "foo-bar",
+        slug: "foo-bar",
+        title: "Foobar",
+        method: "POST",
+        host: exampleServerHost,
+        path: "/another/path",
+      },
+    ];
+
+    const onTriggerDelete = jest.fn();
+    const { stdin } = render(
+      <RequestList
+        requests={requests}
+        onTriggerDelete={onTriggerDelete}
+        onTriggerEdit={jest.fn()}
+        onShowTriggerDialog={jest.fn()}
+      />
+    );
+
+    await delay(0);
+    stdin.write("\t");
+    await delay(0);
+    stdin.write("\t");
+    await delay(0);
+    stdin.write("d");
+    await delay(0);
+
+    expect(onTriggerDelete).toHaveBeenCalledWith(requests[1]);
+  });
+
+  it("Triggers onShowTriggerDialog when you press 't'", async () => {
+    const requests: HttpRequest[] = [
+      {
+        id: "foo",
+        slug: "foo",
+        title: "foo",
+        method: "GET",
+        host: exampleServerHost,
+        path: "/path",
+        headers: {
+          "foo-header": {
+            key: "bar",
+            value: "baz",
+          },
+        },
+      },
+      {
+        id: "foo-bar",
+        slug: "foo-bar",
+        title: "Foobar",
+        method: "POST",
+        host: exampleServerHost,
+        path: "/another/path",
+      },
+    ];
+
+    const onShowTriggerDialog = jest.fn();
+    const { stdin } = render(
+      <RequestList
+        requests={requests}
+        onTriggerDelete={jest.fn()}
+        onTriggerEdit={jest.fn()}
+        onShowTriggerDialog={onShowTriggerDialog}
+      />
+    );
+
+    await delay(0);
+    stdin.write("\t");
+    await delay(0);
+    stdin.write("\t");
+    await delay(0);
+    stdin.write("t");
+    await delay(0);
+
+    expect(onShowTriggerDialog).toHaveBeenCalledWith(requests[1]);
+  });
 });
