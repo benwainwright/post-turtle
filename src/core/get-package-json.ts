@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
-import { getSourceRoot } from "../get-source-root.js";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 interface PackageJson {
   name: string;
@@ -7,8 +8,10 @@ interface PackageJson {
   description: string;
 }
 
+const currentDirectory = dirname(fileURLToPath(import.meta.url));
+
 export const getPackageJson = async (): Promise<PackageJson> => {
-  const rootDir = getSourceRoot();
+  const rootDir = join(currentDirectory, "..", "..");
   const packageJsonPath = `${rootDir}/package.json`;
   return JSON.parse(await readFile(packageJsonPath, "utf8"));
 };
