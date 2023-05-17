@@ -1,7 +1,5 @@
 import { EventEmitter } from "events";
 
-import { render } from "ink";
-import { App } from "../components/app/index.js";
 import { Command } from "commander";
 import { loadData } from "./load-data.js";
 import { getPackageJson } from "./get-package-json.js";
@@ -12,8 +10,9 @@ import {
 } from "../types/http-request-with-field.js";
 import { normaliseRequest } from "./normalise-request.js";
 import { hydrateRequest } from "../hooks/use-request/hydrate-request.js";
-import { TriggerForm } from "../components/trigger-form/index.js";
 import { generateCompletionsScript } from "./generate-completions-script.js";
+import { renderApp } from "./render-app.js";
+import { renderTriggerForm } from "./render-trigger-form.js";
 
 export const buildCli = async () => {
   EventEmitter.defaultMaxListeners = 170;
@@ -28,8 +27,8 @@ export const buildCli = async () => {
     .description(packageJson.description)
     .version(packageJson.version);
 
-  program.action(() => {
-    render(<App />);
+  program.action(async () => {
+    await renderApp();
   });
 
   const call = program
@@ -64,7 +63,7 @@ export const buildCli = async () => {
       header.forEach(addFieldsOption);
     });
 
-    command.action((options) => {
+    command.action(async (options) => {
       const hydrated: HttpRequestWithFields = {
         body: fields.fields.body.map((field) => ({
           ...field,
@@ -92,10 +91,7 @@ export const buildCli = async () => {
       };
 
       const finalRequest = normaliseRequest(hydrateRequest(request, hydrated));
-      render(
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        <TriggerForm request={finalRequest} nonInteractive onClose={() => {}} />
-      );
+      await renderTriggerForm(finalRequest);
     });
   });
   return program;
