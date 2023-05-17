@@ -11,7 +11,7 @@
 
 ## Features
 
-### Interactive mode
+### Interactive Mode
 
 `pt` called without any arguments will trigger an interactive command line
 interface. You can use this interface to create, update or delete existing
@@ -20,7 +20,7 @@ requests, as well as triggering ones that have been created.
 ![Screen recording of a request being created and triggered
 interactively](./images/pt-interactive-create.gif)
 
-### Non-interactive mode
+### Non-interactive Mode
 
 Requests that have been created using interactive mode are stored in your home
 directory in a file called `.post-turtle-request`. Once you have created some
