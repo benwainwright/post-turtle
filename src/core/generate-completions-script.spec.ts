@@ -32,7 +32,7 @@ describe("generateCompletionsScript", () => {
     const expected = `
 _pt_completions() {
   _arguments -C \\
-    "1: :(call)" \\
+    "1: :(call completion)" \\
     "*::arg:->args"
 
   case $line[1] in

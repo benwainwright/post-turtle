@@ -4,8 +4,8 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { HttpRequest } from "../types/http-request.js";
 
-const mockApp = jest.fn(() => <></>);
-const mockTriggerForm = jest.fn(() => <></>);
+const mockRenderApp = jest.fn();
+const mockRenderTriggerForm = jest.fn();
 
 const TEST_PROGRAM_NAME = `test-program-name`;
 const NODE = `node`;
@@ -21,16 +21,16 @@ jest.unstable_mockModule("cli-highlight", () => ({
   highlight: (thing: unknown) => thing,
 }));
 
-jest.unstable_mockModule("../components/app/app.js", () => ({
-  App: mockApp,
+jest.unstable_mockModule("./render-app.js", () => ({
+  renderApp: mockRenderApp,
 }));
 
 jest.unstable_mockModule("./get-package-json.js", () => ({
   getPackageJson,
 }));
 
-jest.unstable_mockModule("../components/trigger-form/index.js", () => ({
-  TriggerForm: mockTriggerForm,
+jest.unstable_mockModule("./render-trigger-form", () => ({
+  renderTriggerForm: mockRenderTriggerForm,
 }));
 
 jest.unstable_mockModule("./default-data-file-path.js", () => ({
@@ -52,8 +52,8 @@ afterEach(async () => {
   }
   process.cwd = oldCwd;
 
-  mockApp.mockClear();
-  mockTriggerForm.mockClear();
+  mockRenderApp.mockClear();
+  mockRenderTriggerForm.mockClear();
 });
 
 describe("build CLI", () => {
@@ -86,13 +86,7 @@ describe("build CLI", () => {
     const program = await buildCli();
 
     program.parse(["call", "foo"], { from: "user" });
-    expect(mockTriggerForm).toHaveBeenCalledWith(
-      expect.objectContaining({
-        request: requests[0],
-        nonInteractive: true,
-      }),
-      expect.anything()
-    );
+    expect(mockRenderTriggerForm).toHaveBeenCalledWith(requests[0]);
   });
 
   it("corretly hydrates the request with command line options if the request has paramaters", async () => {
@@ -126,13 +120,7 @@ describe("build CLI", () => {
     const newRequest = { ...requests[0], path: "path/bar" };
 
     program.parse(["call", "foo", "--id", "bar"], { from: "user" });
-    expect(mockTriggerForm).toHaveBeenCalledWith(
-      expect.objectContaining({
-        request: newRequest,
-        nonInteractive: true,
-      }),
-      expect.anything()
-    );
+    expect(mockRenderTriggerForm).toHaveBeenCalledWith(newRequest);
   });
 
   it("Parses the name and description from the package JSON", async () => {
@@ -153,6 +141,6 @@ describe("build CLI", () => {
 
     program.parse([NODE, TEST_PROGRAM_NAME]);
 
-    expect(mockApp).toHaveBeenCalled();
+    expect(mockRenderApp).toHaveBeenCalled();
   });
 });
