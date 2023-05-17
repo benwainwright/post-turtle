@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-interface PackageJson {
+export interface PackageJson {
   name: string;
   version: string;
   description: string;

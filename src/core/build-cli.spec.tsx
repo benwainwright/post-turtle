@@ -3,6 +3,7 @@ import { mkdtemp, rmdir, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { HttpRequest } from "../types/http-request.js";
+import { PackageJson } from "./get-package-json.js";
 
 const mockRenderApp = jest.fn();
 const mockRenderTriggerForm = jest.fn();
@@ -12,10 +13,7 @@ const NODE = `node`;
 
 const oldCwd = process.cwd;
 
-const getPackageJson =
-  jest.fn<
-    () => Promise<{ name: string; description: string; version: string }>
-  >();
+const getPackageJson = jest.fn<() => Promise<PackageJson>>();
 
 jest.unstable_mockModule("cli-highlight", () => ({
   highlight: (thing: unknown) => thing,
@@ -82,6 +80,9 @@ describe("build CLI", () => {
       name: "foo",
       description: "foo",
       version: "foo",
+      bin: {
+        pt: "something",
+      },
     });
     const program = await buildCli();
 
@@ -114,6 +115,9 @@ describe("build CLI", () => {
       name: "foo",
       description: "foo",
       version: "foo",
+      bin: {
+        pt: "foo",
+      },
     });
     const program = await buildCli();
 
@@ -127,13 +131,18 @@ describe("build CLI", () => {
     const description = `my-description`;
     const version = `1.2.3`;
     const name = `my-name`;
-    getPackageJson.mockResolvedValue({ name, description, version });
+    getPackageJson.mockResolvedValue({
+      name,
+      description,
+      version,
+      bin: { pt: "foo" },
+    });
     const program = await buildCli();
 
     program.parse([NODE, TEST_PROGRAM_NAME]);
 
-    expect(program.description()).toEqual(description);
-    expect(program.name()).toEqual(name);
+    expect(program.description()).toEqual(`post-turtle: ${description}`);
+    expect(program.name()).toEqual(`pt`);
   });
 
   it("should call the interactive mode if there are no arguments", async () => {
