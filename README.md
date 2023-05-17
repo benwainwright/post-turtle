@@ -39,3 +39,7 @@ request contains parameters in the form `{{ name : description }}`, it will have
 
 ![Screen recording of a request with params being created and triggered in
 interactive mode](./images/params-interactive.gif)
+
+## About This Package
+
+This package is written in TypeScript using a combination of [ink](https://github.com/vadimdemedes/ink) to allow me to write a great responsive CLI experience using my React skills and [commander.js](https://www.npmjs.com/package/commander) to provide a nice non-interactive CLI setup
