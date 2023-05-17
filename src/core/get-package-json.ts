@@ -6,6 +6,7 @@ interface PackageJson {
   name: string;
   version: string;
   description: string;
+  bin: Record<string, unknown>;
 }
 
 const currentDirectory = dirname(fileURLToPath(import.meta.url));

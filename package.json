@@ -1,7 +1,7 @@
 {
   "name": "post-turtle",
   "version": "1.6.0",
-  "description": "Postman in a shell 🐢",
+  "description": "a lightweight alternative to Postman for shell-centric users 🐢",
   "type": "module",
   "license": "MIT",
   "author": {

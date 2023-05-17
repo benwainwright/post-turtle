@@ -21,21 +21,22 @@ export const buildCli = async () => {
 
   const program = new Command();
 
+  const name = Object.keys(packageJson.bin)[0];
+
   program
-    .option("-c, --config <path>")
-    .name(packageJson.name)
-    .description(packageJson.description)
-    .version(packageJson.version);
+    .name(name)
+    .description(`post-turtle: ${packageJson.description}`)
+    .version(packageJson.version)
+    .addHelpText(
+      "after",
+      `\nTo edit saved HTTP requests interactively, run ${name} without arguments`
+    );
 
   program.action(async () => {
     await renderApp();
   });
 
-  const call = program
-    .command("call")
-    .description(
-      `Call HTTP request. To edit this list of commands interactively, run ${packageJson.name} without arguments`
-    );
+  const call = program.command("call").description(`Call saved HTTP request`);
 
   const data = await loadData();
 
