@@ -26,7 +26,6 @@
     "ink-divider": "^3.0.0",
     "ink-spinner": "5.0.0",
     "ink-table": "^3.0.0",
-    "ink-testing-library": "3.0.0",
     "ink-text-input": "5.0.1",
     "lodash": "4.17.21",
     "node-fetch": "3.3.1",
@@ -35,6 +34,7 @@
     "uuid": "9.0.0"
   },
   "devDependencies": {
+    "ink-testing-library": "3.0.0",
     "@babel/plugin-transform-modules-commonjs": "7.21.2",
     "@babel/preset-env": "7.21.4",
     "@babel/preset-react": "7.18.6",
