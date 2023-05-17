@@ -24,7 +24,7 @@ interactively](./images/pt-interactive-create.gif)
 
 Requests that have been created using interactive mode are stored in your home
 directory in a file called `.post-turtle-request`. Once you have created some
-requests via the interactive mode, these requests will be available to call
+requests, these requests will be available to call
 non-interactively using `pt call <slug>`
 
 ### Parameters
