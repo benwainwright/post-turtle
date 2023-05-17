@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 
 import { render } from "ink";
 import { App } from "../components/app/index.js";
-import { program } from "commander";
+import { Command } from "commander";
 import { loadData } from "./load-data.js";
 import { getPackageJson } from "./get-package-json.js";
 import { parseRequestFields } from "../hooks/use-request/parse-request-fields.js";
@@ -13,11 +13,14 @@ import {
 import { normaliseRequest } from "./normalise-request.js";
 import { hydrateRequest } from "../hooks/use-request/hydrate-request.js";
 import { TriggerForm } from "../components/trigger-form/index.js";
+import { generateCompletionsScript } from "./generate-completions-script.js";
 
 export const buildCli = async () => {
   EventEmitter.defaultMaxListeners = 170;
 
   const packageJson = await getPackageJson();
+
+  const program = new Command();
 
   program
     .option("-c, --config <path>")
@@ -36,6 +39,13 @@ export const buildCli = async () => {
     );
 
   const data = await loadData();
+
+  program
+    .command("completion")
+    .description("Generate ZSH completion script")
+    // eslint-disable-next-line no-console
+    .action(() => console.log(generateCompletionsScript(data)));
+
   data.forEach((request) => {
     const fields = parseRequestFields(request);
     const command = call.command(request.slug).description(request.title);

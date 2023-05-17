@@ -85,10 +85,50 @@ describe("build CLI", () => {
     });
     const program = await buildCli();
 
-    program.parse([NODE, TEST_PROGRAM_NAME, "call", "foo"]);
+    program.parse(["call", "foo"], { from: "user" });
     expect(mockTriggerForm).toHaveBeenCalledWith(
       expect.objectContaining({
         request: requests[0],
+        nonInteractive: true,
+      }),
+      expect.anything()
+    );
+  });
+
+  it("corretly hydrates the request with command line options if the request has paramaters", async () => {
+    const exampleServerHost = `http://example-server.com`;
+    const requests: HttpRequest[] = [
+      {
+        id: "foo",
+        slug: "foo",
+        title: "foo",
+        method: "GET",
+        host: exampleServerHost,
+        path: "path/{{ id }}",
+        headers: {
+          "foo-header": {
+            key: "bar",
+            value: "baz",
+          },
+        },
+      },
+    ];
+
+    await writeFile(`${path}/requests.json`, JSON.stringify(requests));
+
+    getPackageJson.mockResolvedValue({
+      name: "foo",
+      description: "foo",
+      version: "foo",
+    });
+    const program = await buildCli();
+
+    const newRequest = { ...requests[0], path: "path/bar" };
+
+    program.parse(["call", "foo", "--id", "bar"], { from: "user" });
+    expect(mockTriggerForm).toHaveBeenCalledWith(
+      expect.objectContaining({
+        request: newRequest,
         nonInteractive: true,
       }),
       expect.anything()
