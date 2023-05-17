@@ -29,8 +29,8 @@ non-interactively using `pt call <slug>`
 
 ### Parameters
 
-All request fields can contain 'parameters' by using handlebars syntax. If a
-request contains parameters, it will have the following effect
+All request fields can contain 'parameters' by using a simplified handlebars syntax. If a
+request contains parameters in the form `{{ name : description }}`, it will have the following effect
 
 - Triggering the request via interactive mode will produce an input field for
   each parameter
