@@ -36,13 +36,13 @@ export const buildCli = async () => {
     await renderApp();
   });
 
-  const call = program.command("call").description(`Call saved HTTP request`);
+  const call = program.command("call").description(`call saved HTTP request`);
 
   const data = await loadData();
 
   program
     .command("completion")
-    .description("Generate ZSH completion script")
+    .description("generate ZSH completion script")
     // eslint-disable-next-line no-console
     .action(() => console.log(generateCompletionsScript(data)));
 
