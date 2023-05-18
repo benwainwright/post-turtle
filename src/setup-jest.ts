@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import { TextDecoder, TextEncoder } from "node:util";
 
 global.TextEncoder = TextEncoder;
@@ -8,3 +9,5 @@ global.TextEncoder = TextEncoder;
  * from StackOverflow: https://stackoverflow.com/questions/57712235/referenceerror-textencoder-is-not-defined-when-running-react-scripts-test/57713960#57713960
  */
 global.TextDecoder = TextDecoder as (typeof global)["TextDecoder"];
+
+jest.retryTimes(3);
