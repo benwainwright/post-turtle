@@ -27,6 +27,9 @@ directory in a file called `.post-turtle-request`. Once you have created some
 requests, these requests will be available to call
 non-interactively using `pt call <slug>`
 
+![Screen recording of a request being created and triggered
+non-interactively](./images/non-interactive.gif)
+
 ### Parameters
 
 All request fields can contain 'parameters' by using a simplified handlebars syntax. If a
