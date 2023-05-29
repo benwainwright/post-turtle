@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: Interview Tests Mock API
+  version: 1.0.0
+servers:
+  - url: https://api.krakenflex.systems/interview-tests-mock-api/v1
+paths:
+  /outages:
+    get:
+      summary: Returns all outages in our system.
+      description: An outage is when a device can no longer provide service and is declared as offline. Each outage consists of a device ID, begin time, and end time.
+      responses:
+        '200':
+          $ref: '#/components/responses/Outages'
+        '403':
+          $ref: '#/components/responses/403'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - api_key: []
+      tags:
+        - 'Exercise'
+
+  /site-info/{siteId}:
+    get:
+      summary: Returns information about a specific site.
+      description: The site information contains the ID and name of the site. It also contains a list of devices that make up the site.
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          $ref: '#/components/responses/SiteInfo'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - api_key: []
+      tags:
+        - 'Exercise'
+
+  /site-outages/{siteId}:
+    post:
+      summary: Posts outages for a specific site with enhanced information.
+      description: The outages posted should contain a device ID, device name, begin time, and end time.
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnhancedOutages'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+      security:
+        - api_key: []
+      tags:
+        - 'Exercise'
+
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: Your API key
+      name: x-api-key
+      in: header
+
+  parameters:
+    SiteId:
+      name: siteId
+      in: path
+      description: Identifier for a site
+      schema:
+        $ref: '#/components/schemas/SiteId'
+      required: true
+
+  schemas:
+    ErrorMessage:
+      type: object
+      description: Error message returned if there is a problem
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    Outages:
+      type: array
+      description: An array outages
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            description: The device ID the outage pertains to
+            example: '44c02564-a229-4f51-8ded-cc7bcb202566'
+          begin:
+            type: string
+            format: date-time
+            description: Outage begin date time
+            example: '2022-01-01T00:00:00.000Z'
+          end:
+            type: string
+            format: date-time
+            description: Outage end date time
+            example: '2022-01-02T12:01:59.123Z'
+        required:
+          - id
+          - begin
+          - end
+
+    SiteId:
+      type: string
+      description: Identifier for a site
+      example: 'pear-tree'
+
+    SiteInfo:
+      type: object
+      description: Information on a site
+      properties:
+        id:
+          type: string
+          description: The ID of the site
+          example: 'pear-tree'
+        name:
+          type: string
+          description: The display name of the site
+          example: 'Pear Tree'
+        devices:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The device ID
+                example: '44c02564-a229-4f51-8ded-cc7bcb202566'
+              name:
+                type: string
+                description: The display name of the device
+                example: 'Partridge'
+            required:
+              - id
+              - name
+      required:
+        - id
+        - name
+        - devices
+
+    EnhancedOutages:
+      type: array
+      description: An array of outages enhanced with extra information
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            description: The device ID the outage pertains to
+            example: '44c02564-a229-4f51-8ded-cc7bcb202566'
+          name:
+            type: string
+            description: The display name of the device the outage pertains to
+            example: 'Partridge'
+          begin:
+            type: string
+            format: date-time
+            description: Outage begin date time
+            example: '2022-01-01T00:00:00.000Z'
+          end:
+            type: string
+            format: date-time
+            description: Outage end date time
+            example: '2022-01-02T12:01:59.123Z'
+        required:
+          - id
+          - name
+          - begin
+          - end
+
+  responses:
+    Outages:
+      description: Outages response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Outages'
+
+    SiteInfo:
+      description: Site information response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SiteInfo'
+
+    '200':
+      description: Successfully processed request.
+
+    '400':
+      description: We cannot process your request because it doesn't match the required format.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+
+    '403':
+      description: You do not have the required permissions to make this request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+
+    '404':
+      description: You have requested a resource that does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+
+    '429':
+      description: You've exceeded your limit for your API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
