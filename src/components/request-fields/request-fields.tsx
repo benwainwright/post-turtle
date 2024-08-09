@@ -11,6 +11,7 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
     <>
       {fields.host.map((hostField, index) => (
         <Input
+          placeholder={hostField.description}
           key={`host-${hostField.name}`}
           label={hostField.name}
           value={hostField.data}
@@ -23,6 +24,7 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
       ))}
       {fields.body.map((bodyField, index) => (
         <Input
+          placeholder={bodyField.description}
           key={`body-${bodyField.name}`}
           label={bodyField.name}
           value={bodyField.data}
@@ -35,6 +37,7 @@ export const RequestFields = ({ fields, setFields }: RequestFieldsProps) => {
       ))}
       {fields.path.map((pathField, index) => (
         <Input
+          placeholder={pathField.description}
           key={`path-${pathField.name}`}
           label={pathField.name}
           value={pathField.data}

@@ -15,11 +15,12 @@ export const Input = ({ label, value, onChange, placeholder }: InputProps) => {
   return (
     <Box
       borderStyle={"single"}
-      borderColor={isFocused ? "green" : undefined}
-      width={INPUT_WIDTH}
+      borderColor={isFocused ? "green" : "gray"}
+      width={"100%"}
+      paddingX={1}
     >
       <Box marginRight={1}>
-        <Text>{label}</Text>
+        <Text color="green" bold>{label}:</Text>
       </Box>
 
       <TextInput

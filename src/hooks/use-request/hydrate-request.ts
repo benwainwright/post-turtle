@@ -4,8 +4,11 @@ import {
 } from "../../types/http-request-with-field.js";
 import { HttpRequest } from "../../types/http-request.js";
 
-const hydrateStringWithFields = (text: string, fields: Field[]) =>
-  fields.reduce((text, field) => text.replace(field.replace, field.data), text);
+const hydrateStringWithFields = (text: string, fields?: Field[]) =>
+  fields?.reduce(
+    (text, field) => text.replace(field.replace, field.data),
+    text
+  ) ?? "";
 
 export const hydrateRequest = (
   request: HttpRequest,

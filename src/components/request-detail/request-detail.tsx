@@ -1,26 +1,53 @@
 import { Box, Text } from "ink";
 import { HttpRequest } from "../../types/http-request.js";
+import { parseRequestFields } from "../../hooks/use-request/parse-request-fields.js";
+import { hydrateRequest } from "../../hooks/use-request/hydrate-request.js";
 
 interface RequestDetailProps {
   request: HttpRequest;
 }
 
 export const RequestDetail = ({ request }: RequestDetailProps) => {
+  const hostFields = parseRequestFields(request).fields.host.map((field) => ({
+    ...field,
+    data: `{${field.name}}`,
+  }));
+
+  const pathFields = parseRequestFields(request).fields.path.map((field) => ({
+    ...field,
+    data: `{${field.name}}`,
+  }));
+
+  const neatRequest = hydrateRequest(request, {
+    host: hostFields,
+    path: pathFields,
+    body: [],
+    headers: {},
+  });
+
   const pathString =
-    !request.path || request.path.startsWith("/")
-      ? request.path
-      : `/${request.path}`;
+    !neatRequest.path || neatRequest.path.startsWith("/")
+      ? neatRequest.path
+      : `/${neatRequest.path}`;
+
   return (
     <Box flexDirection="column">
       <Box gap={2}>
-        <Text bold color="blue">
-          {request.title}
-        </Text>
-        <Text>{request.method}</Text>
-        <Text>
-          {request.host}
-          {pathString}
-        </Text>
+        <Box flexGrow={2}>
+          <Text bold color="blue">
+            {request.title}
+          </Text>
+        </Box>
+
+        <Box>
+          <Text>{request.method}</Text>
+        </Box>
+        <Box width="70%">
+          <Text>
+            {neatRequest.host}
+            {pathString}
+          </Text>
+        </Box>
       </Box>
       {request.headers && (
         <Box marginTop={1} flexDirection="column">

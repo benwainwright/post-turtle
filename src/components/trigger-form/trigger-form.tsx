@@ -42,59 +42,67 @@ export const TriggerForm = ({
   }, []);
 
   return (
-    <Box borderStyle="single" flexDirection="column">
-      <RequestDetail request={fieldsEdited ? finalRequest : request} />
-      {hasFields && (
-        <Box marginTop={1} flexDirection="column">
-          <Text bold color="blue">
-            Fields
-          </Text>
-          <Box flexDirection="column">
-            <RequestFields fields={fields} setFields={setFields} />
-          </Box>
-        </Box>
-      )}
-      <Box flexDirection="column">
-        {loading && (
-          <Box marginTop={1}>
-            <Text>
-              <Text color="green">
-                <Spinner type="dots" />
-              </Text>
-              {" Loading"}
-            </Text>
-          </Box>
-        )}
-        {response && (
+    <>
+      <Box
+        borderStyle="single"
+        flexDirection="column"
+        paddingLeft={1}
+        paddingRight={1}
+        borderColor={"grey"}
+      >
+        <RequestDetail request={fieldsEdited ? finalRequest : request} />
+        {hasFields && (
           <Box marginTop={1} flexDirection="column">
             <Text bold color="blue">
-              Response
+              Fields
             </Text>
-            {response && !(response instanceof FetchError) && (
-              <>
-                <Box marginBottom={1} flexDirection="column">
-                  <Text bold>Status Code</Text>
-                  <Text>{response.statusCode}</Text>
-                </Box>
-                <Box flexDirection="column">
-                  <Text>
-                    {highlight(response.body, {
-                      language: response.contentType,
-                    })}
-                  </Text>
-                </Box>
-              </>
-            )}
+            <Box flexDirection="column">
+              <RequestFields fields={fields} setFields={setFields} />
+            </Box>
           </Box>
         )}
+        <Box flexDirection="column">
+          {loading && (
+            <Box marginTop={1}>
+              <Text>
+                <Text color="green">
+                  <Spinner type="dots" />
+                </Text>
+                {" Loading"}
+              </Text>
+            </Box>
+          )}
+          {response && (
+            <Box marginTop={1} flexDirection="column">
+              <Text bold color="blue">
+                Response
+              </Text>
+              {response && !(response instanceof FetchError) && (
+                <>
+                  <Box marginBottom={1} flexDirection="column">
+                    <Text bold>Status Code</Text>
+                    <Text>{response.statusCode}</Text>
+                  </Box>
+                  <Box flexDirection="column">
+                    <Text>
+                      {highlight(response.body, {
+                        language: response.contentType,
+                      })}
+                    </Text>
+                  </Box>
+                </>
+              )}
+            </Box>
+          )}
+        </Box>
       </Box>
 
       {!nonInteractive && (
-        <Box marginTop={1}>
+        <Box justifyContent="center" gap={2}>
           <Button label="Trigger" onEnter={() => trigger()} />
           <Button label="Close" onEnter={onClose} />
         </Box>
       )}
-    </Box>
+    </>
   );
 };

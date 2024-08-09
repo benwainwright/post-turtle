@@ -26,12 +26,15 @@ export const Select = ({ label, options, value, onChange }: SelectProps) => {
   });
   return (
     <Box
+      paddingX={1}
       borderStyle={"single"}
       borderColor={isFocused ? "green" : undefined}
-      width={INPUT_WIDTH}
+      width={"100%"}
     >
       <Box marginRight={1}>
-        <Text>{label}</Text>
+        <Text bold color="green">
+          {label}:
+        </Text>
       </Box>
 
       <Box gap={3}>

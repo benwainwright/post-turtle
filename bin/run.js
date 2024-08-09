@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --enable-source-maps
 
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";

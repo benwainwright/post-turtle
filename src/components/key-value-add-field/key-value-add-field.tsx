@@ -101,13 +101,14 @@ export const KeyValueAddField = ({
 
   return (
     <Box
+      paddingX={1}
       flexDirection="column"
       borderStyle={"single"}
       borderColor={isFocused ? "green" : undefined}
-      width={INPUT_WIDTH}
+      width={"100%"}
     >
       <Box marginRight={1}>
-        <Text>{label}</Text>
+        <Text color="green">{label}:</Text>
       </Box>
       <Box flexDirection="row" marginBottom={1}>
         <KeyValueAddFieldEntries

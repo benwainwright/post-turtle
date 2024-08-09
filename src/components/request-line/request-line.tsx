@@ -37,7 +37,8 @@ export const RequestLine = ({
     <Box
       flexDirection="column"
       borderStyle="single"
-      borderColor={isFocused ? "blue" : "white"}
+      paddingX={1}
+      borderColor={isFocused ? "blue" : "grey"}
     >
       <RequestDetail request={request} />
     </Box>

@@ -13,9 +13,10 @@ export const Button = (props: ButtonProps) => {
   });
   return (
     <Box
-      paddingX={3}
+      paddingX={15}
       paddingY={0}
       borderStyle="single"
+      justifyContent="space-around"
       borderColor={isFocused ? "green" : undefined}
     >
       <Text>{props.label}</Text>
